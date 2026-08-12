@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Humidor — Cigar Ledger</title>
+<style>
+  :root{
+    --ink:#1c2530; --ink-soft:#37455a; --paper:#eae4d3; --paper-raised:#f4efe2; --paper-edge:#d5cbac;
+    --line:#c7bb98; --brass:#b8874f; --green:#35695c; --blue:#35597a; --red:#a63a2e; --plum:#6a4a6e;
+    --slate:#5b6672; --ochre:#8a7a3a;
+    --font-display: Georgia,'Iowan Old Style','Palatino Linotype',Palatino,'Noto Serif',serif;
+    --font-body: -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+    --font-mono: ui-monospace,'SF Mono','Cascadia Mono','Segoe UI Mono',Consolas,'Liberation Mono',Menlo,monospace;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;padding:0;background:var(--paper);color:var(--ink);font-family:var(--font-body);}
+  .wrap{max-width:1120px;margin:0 auto;padding:28px 22px 60px;}
+
+  .masthead{
+    display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:10px;
+    border-bottom:3px solid var(--ink);padding-bottom:14px;margin-bottom:20px;
+  }
+  .wordmark{font-family:var(--font-display);font-weight:900;font-size:30px;letter-spacing:0.5px;}
+  .wordmark small{
+    display:block;font-family:var(--font-mono);font-weight:400;font-size:11px;letter-spacing:3px;
+    color:var(--ink-soft);text-transform:uppercase;margin-top:4px;
+  }
+  .data-actions{display:flex;gap:8px;}
+
+  .kpi-board{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(128px,1fr));gap:1px;
+    background:var(--ink);border:1px solid var(--ink);margin-bottom:22px;border-radius:6px;overflow:hidden;
+  }
+  .kpi-cell{background:var(--ink);color:var(--paper-raised);padding:14px 16px;}
+  .kpi-cell .label{font-family:var(--font-mono);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;opacity:.65;}
+  .kpi-cell .value{font-family:var(--font-mono);font-size:20px;font-weight:600;margin-top:4px;}
+
+  .tab-bar{display:flex;gap:0;margin-bottom:18px;border-bottom:2px solid var(--paper-edge);flex-wrap:wrap;}
+  .tab-btn{
+    border:none;border-bottom:3px solid transparent;border-radius:0;background:transparent;
+    padding:9px 4px;margin-right:22px;color:var(--ink-soft);font-family:var(--font-mono);
+    font-size:12px;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;
+  }
+  .tab-btn.active{color:var(--ink);border-bottom-color:var(--ink);font-weight:700;}
+  .tab-btn:hover{color:var(--ink);}
+
+  button{
+    font-family:var(--font-body);font-size:13px;font-weight:600;cursor:pointer;border-radius:5px;
+    padding:9px 14px;border:1px solid var(--ink);background:transparent;color:var(--ink);
+  }
+  .btn-primary{background:var(--ink);color:var(--paper-raised);}
+  .btn-primary:hover{background:var(--ink-soft);}
+  .btn-ghost:hover{background:var(--paper-raised);}
+  .btn-danger{color:var(--red);border-color:var(--red);}
+  .btn-danger:hover{background:var(--red);color:#fff;}
+  .btn-sm{padding:6px 11px;font-size:12px;}
+  button:disabled{opacity:.4;cursor:not-allowed;}
+
+  input[type=text],input[type=number],select{
+    font-family:var(--font-body);font-size:13px;padding:8px 10px;border:1px solid var(--paper-edge);
+    border-radius:5px;background:var(--paper-raised);color:var(--ink);
+  }
+  input:focus,select:focus{outline:1px solid var(--ink);}
+  .filter-bar{display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap;}
+  .filter-bar input[type=text]{flex:1;min-width:180px;}
+
+  .card{background:var(--paper-raised);border:1px solid var(--paper-edge);border-radius:8px;padding:20px;}
+  .section-title{font-family:var(--font-display);font-weight:700;font-size:17px;margin:0 0 14px;color:var(--ink);}
+  .chart-title{
+    font-family:var(--font-mono);font-size:11px;letter-spacing:1.5px;text-transform:uppercase;
+    color:var(--ink-soft);margin:0 0 14px 0;font-weight:600;
+  }
+  .empty{text-align:center;padding:52px;color:var(--ink-soft);font-family:var(--font-mono);font-size:12px;letter-spacing:.5px;}
+
+  table{width:100%;border-collapse:collapse;font-size:13px;}
+  th{
+    font-family:var(--font-mono);font-size:10px;letter-spacing:1px;text-transform:uppercase;
+    text-align:left;padding:8px 10px;border-bottom:2px solid var(--ink);color:var(--ink-soft);
+  }
+  td{padding:10px;border-bottom:1px solid var(--line);vertical-align:top;}
+  td.num{font-family:var(--font-mono);text-align:right;}
+  .center{text-align:center;}
+  tr:hover td{background:var(--paper);}
+
+  .status-chip{
+    font-family:var(--font-mono);font-size:10px;letter-spacing:1px;text-transform:uppercase;
+    padding:2px 8px;border-radius:20px;font-weight:600;border:1px solid currentColor;display:inline-block;
+  }
+  .tag{
+    font-family:var(--font-mono);font-size:10px;letter-spacing:.4px;text-transform:uppercase;
+    padding:2px 7px;border-radius:20px;border:1px solid var(--line);color:var(--ink-soft);
+    margin:2px 4px 0 0;display:inline-block;
+  }
+
+  .recent-item{display:flex;justify-content:space-between;align-items:flex-start;border-top:1px solid var(--line);padding:12px 0;}
+  .recent-item:first-child{border-top:none;}
+  .muted{color:var(--ink-soft);font-size:12.5px;}
+  .mono{font-family:var(--font-mono);}
+
+  .charts-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(390px,1fr));gap:18px;}
+  .legend{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px;justify-content:center;font-family:var(--font-mono);font-size:11px;}
+  .legend-item{display:flex;align-items:center;gap:6px;color:var(--ink);}
+  .swatch{width:10px;height:10px;border-radius:2px;flex-shrink:0;}
+
+  .passes-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px;}
+  .pass{
+    background:var(--paper-raised);border:1px solid var(--paper-edge);border-radius:10px;
+    position:relative;overflow:hidden;transition:box-shadow .15s ease;
+  }
+  .pass.comparing{border-color:var(--ink);box-shadow:0 0 0 1px var(--ink);}
+  .pass-top{padding:16px 16px 4px;}
+  .pass-eyebrow{
+    font-family:var(--font-mono);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink-soft);
+    display:flex;justify-content:space-between;align-items:center;gap:6px;flex-wrap:wrap;
+  }
+  .eyebrow-country{display:inline-flex;align-items:center;gap:5px;}
+  .flag-icon{flex-shrink:0;border:1px solid var(--paper-edge);border-radius:2px;display:block;}
+  .pass-name{font-family:var(--font-display);font-weight:700;font-size:20px;margin:6px 0 4px;}
+  .pass-specs{display:grid;grid-template-columns:1fr 1fr;gap:8px 14px;margin:10px 0 4px;}
+  .spec-label{font-family:var(--font-mono);font-size:9px;letter-spacing:1.2px;text-transform:uppercase;color:var(--ink-soft);display:block;}
+  .spec-value{font-family:var(--font-display);font-size:14.5px;font-weight:700;color:var(--ink);}
+  .smoke-block{margin:8px 0 4px;}
+  .smoke-row{display:flex;align-items:center;gap:9px;margin-top:4px;}
+  .smoke-bar{flex:1;height:6px;background:var(--paper-edge);border-radius:3px;overflow:hidden;}
+  .smoke-fill{height:100%;background:var(--brass);border-radius:3px;}
+  .smoke-value{font-family:var(--font-mono);font-size:12.5px;font-weight:700;white-space:nowrap;color:var(--ink);}
+  .price-row{display:flex;justify-content:space-between;align-items:baseline;margin:10px 0 2px;}
+  .price-value{font-family:var(--font-mono);font-size:18px;font-weight:700;color:var(--ink);}
+  .pass-flavours{font-family:var(--font-mono);font-size:11px;color:var(--ink-soft);margin:6px 0 2px;letter-spacing:.2px;}
+  .perforation{border-top:2px dashed var(--paper-edge);position:relative;margin-top:10px;}
+  .perforation::before,.perforation::after{
+    content:'';position:absolute;top:-8px;width:16px;height:16px;background:var(--paper);border-radius:50%;
+  }
+  .perforation::before{left:-8px;} .perforation::after{right:-8px;}
+  .cigar-band{margin:12px 16px 0;border-top:3px solid var(--brass);border-bottom:3px solid var(--brass);padding:6px 10px;text-align:center;}
+  .band-text{font-family:var(--font-display);font-size:11px;letter-spacing:2.5px;color:#f4efe2;font-weight:700;}
+  .pass-footer{display:flex;justify-content:space-between;align-items:center;padding:10px 16px 2px;}
+  .source-link{font-family:var(--font-mono);font-size:11px;color:var(--ink-soft);text-decoration:underline;}
+  .source-link:hover{color:var(--ink);}
+  .pass-actions{display:flex;gap:6px;padding:12px 16px 16px;flex-wrap:wrap;}
+  .pass-actions button{flex:1;min-width:80px;}
+
+  ::placeholder{color:#a89a78;}
+  .hint{font-size:11.5px;color:var(--ink-soft);margin:10px 0 0;font-family:var(--font-mono);letter-spacing:.2px;}
+</style>
+</head>
+<body>
+<div class="wrap" id="root"></div>
+
+<script>
+(function(){
+"use strict";
+
+/* ---------------- DATA (UK retail pricing, GBP) ---------------- */
+var SEED_CIGARS = [
+  {id:'cohiba-robusto',brand:'Cohiba',vitola:'Robusto',size:'5x50',smokeTime:50,retailPrice:24.00,strength:'Medium',flavors:['cedar','leather','spice'],pairings:['Rum','Cognac','Whisky'],country:'Cuba',rating:9.0},
+  {id:'davidoff-churchill',brand:'Davidoff',vitola:'Churchill',size:'7x50',smokeTime:75,retailPrice:32.00,strength:'Medium-Light',flavors:['cedar','cream','vanilla'],pairings:['Coffee','Cognac','Port'],country:'Dominican Republic',rating:8.8},
+  {id:'partagas-churchill',brand:'Partagás',vitola:'Churchill',size:'7x47',smokeTime:70,retailPrice:14.00,strength:'Medium',flavors:['earth','spice','leather'],pairings:['Rum','Whisky','Dark Ale'],country:'Cuba',rating:8.5},
+  {id:'mont-blanc-robusto',brand:'Montblanc',vitola:'Robusto',size:'5x50',smokeTime:55,retailPrice:16.00,strength:'Medium-Full',flavors:['cocoa','spice','cedar'],pairings:['Espresso','Bourbon','Cigar'],country:'Nicaragua',rating:8.2},
+  {id:'opus-x-fuente',brand:'Opus X',vitola:'Robusto',size:'5x50',smokeTime:60,retailPrice:38.00,strength:'Full',flavors:['spice','leather','cocoa'],pairings:['Scotch','Bourbon','Dark Chocolate'],country:'Dominican Republic',rating:9.2},
+  {id:'ashton-virgin-sun',brand:'Ashton',vitola:'Torpedo',size:'6.25x52',smokeTime:65,retailPrice:18.00,strength:'Medium',flavors:['cream','vanilla','cedar'],pairings:['Coffee','Bourbon','Brandy'],country:'Dominican Republic',rating:8.3},
+  {id:'bolivar-churchill',brand:'Bolívar',vitola:'Churchill',size:'7x49',smokeTime:75,retailPrice:15.00,strength:'Full',flavors:['earth','leather','pepper'],pairings:['Rum','Whisky','Port'],country:'Cuba',rating:8.7},
+  {id:'padron-1964-robusto',brand:'Padron',vitola:'Robusto',size:'5x50',smokeTime:50,retailPrice:11.00,strength:'Medium-Full',flavors:['pepper','earth','cedar'],pairings:['Rum','Bourbon','Coffee'],country:'Nicaragua',rating:8.6},
+  {id:'arturo-fuente-shark',brand:'Arturo Fuente',vitola:'Shark',size:'8x52',smokeTime:90,retailPrice:22.00,strength:'Medium',flavors:['cedar','cream','spice'],pairings:['Cognac','Whisky','Coffee'],country:'Dominican Republic',rating:8.9},
+  {id:'avo-xo-robusto',brand:'AVO',vitola:'Robusto',size:'5x50',smokeTime:55,retailPrice:20.00,strength:'Medium-Light',flavors:['vanilla','cream','cedar'],pairings:['Coffee','Cognac','Champagne'],country:'Dominican Republic',rating:8.4},
+  {id:'romeo-julieta-churchill',brand:'Romeo y Julieta',vitola:'Churchill',size:'7x47',smokeTime:70,retailPrice:15.50,strength:'Medium',flavors:['cedar','nutty','floral'],pairings:['Rum','Port','Tea'],country:'Cuba',rating:8.4},
+  {id:'my-father-le-bijou',brand:'My Father',vitola:'Robusto',size:'5x52',smokeTime:55,retailPrice:18.00,strength:'Full',flavors:['pepper','cocoa','espresso'],pairings:['Bourbon','Espresso','Dark Rum'],country:'Nicaragua',rating:9.1},
+  {id:'oliva-serie-v',brand:'Oliva',vitola:'Torpedo',size:'6x52',smokeTime:70,retailPrice:15.00,strength:'Full',flavors:['pepper','cocoa','espresso'],pairings:['Whisky','Espresso','Port'],country:'Nicaragua',rating:8.8},
+  {id:'macanudo-hyde-park',brand:'Macanudo',vitola:'Hyde Park',size:'4.9x49',smokeTime:45,retailPrice:11.00,strength:'Light',flavors:['cream','cedar','nutty'],pairings:['Coffee','Port','Light Ale'],country:'Dominican Republic',rating:7.9},
+  {id:'liga-privada-no9',brand:'Liga Privada',vitola:'Robusto',size:'5x52',smokeTime:60,retailPrice:20.00,strength:'Full',flavors:['earth','cocoa','espresso'],pairings:['Bourbon','Scotch','Espresso'],country:'Nicaragua',rating:9.0},
+  {id:'hoyo-de-monterrey',brand:'Hoyo de Monterrey',vitola:'Epicure No.2',size:'4.9x50',smokeTime:50,retailPrice:13.50,strength:'Medium',flavors:['cedar','nutty','earth'],pairings:['Sherry','Rum','Coffee'],country:'Cuba',rating:8.3},
+  {id:'rocky-patel-decade',brand:'Rocky Patel',vitola:'Robusto',size:'5.5x50',smokeTime:60,retailPrice:17.00,strength:'Medium-Full',flavors:['spice','cedar','cocoa'],pairings:['Bourbon','Whisky','Coffee'],country:'Honduras',rating:8.5},
+  {id:'don-pepin-garcia',brand:'Don Pepín García',vitola:'Robusto',size:'5x50',smokeTime:55,retailPrice:15.00,strength:'Full',flavors:['pepper','earth','leather'],pairings:['Rum','Whisky','Dark Ale'],country:'Nicaragua',rating:8.7},
+  {id:'perdomo-10th',brand:'Perdomo',vitola:'Robusto',size:'5x54',smokeTime:65,retailPrice:12.50,strength:'Medium',flavors:['cocoa','cedar','nutty'],pairings:['Coffee','Bourbon','Brandy'],country:'Nicaragua',rating:8.2},
+  {id:'crowned-heads-jericho',brand:'Crowned Heads',vitola:'Robusto',size:'5x50',smokeTime:55,retailPrice:16.50,strength:'Medium-Full',flavors:['spice','cedar','cocoa'],pairings:['Rye Whisky','Coffee','Port'],country:'Nicaragua',rating:8.6}
+];
+var STRENGTHS = ['Light','Medium-Light','Medium','Medium-Full','Full'];
+var PALETTE = ['#b8874f','#35695c','#35597a','#a63a2e','#6a4a6e','#5b6672','#8a7a3a','#1c2530'];
+
+/* ---------------- STATE ---------------- */
+var state = {
+  humidor: [], smokeHistory: [], customLibrary: [], wishlist: [], hiddenSeedIds: [],
+  activeTab: 'dashboard',
+  searchBrand: '', filterStrength: 'All',
+  rSearch: '', rCountry: 'All', rStrength: 'All', rMaxPrice: '', rSort: 'rating-desc',
+  compareList: []
+};
+
+function loadState(){
+  try{
+    var h = localStorage.getItem('humidor-inventory-uk');
+    var s = localStorage.getItem('smoke-history-uk');
+    var c = localStorage.getItem('custom-library-uk');
+    var w = localStorage.getItem('wishlist-uk');
+    var hd = localStorage.getItem('hidden-seed-ids-uk');
+    if(h) state.humidor = JSON.parse(h);
+    if(s) state.smokeHistory = JSON.parse(s);
+    if(c) state.customLibrary = JSON.parse(c);
+    if(w) state.wishlist = JSON.parse(w);
+    if(hd) state.hiddenSeedIds = JSON.parse(hd);
+  }catch(e){ console.warn('Could not load saved data', e); }
+}
+function persist(){
+  localStorage.setItem('humidor-inventory-uk', JSON.stringify(state.humidor));
+  localStorage.setItem('smoke-history-uk', JSON.stringify(state.smokeHistory));
+  localStorage.setItem('custom-library-uk', JSON.stringify(state.customLibrary));
+  localStorage.setItem('wishlist-uk', JSON.stringify(state.wishlist));
+  localStorage.setItem('hidden-seed-ids-uk', JSON.stringify(state.hiddenSeedIds));
+}
+function library(){
+  return SEED_CIGARS.filter(function(c){ return state.hiddenSeedIds.indexOf(c.id)===-1; }).concat(state.customLibrary);
+}
+function findCigar(id){ return library().filter(function(c){return c.id===id;})[0]; }
+function genId(){ return Date.now().toString(36)+Math.random().toString(36).slice(2,8); }
+function esc(str){
+  return String(str==null?'':str).replace(/[&<>"']/g, function(c){
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+  });
+}
+function money(n){ n=Math.round(n*100)/100; return '£'+n.toFixed(2); }
+function ukDateToDate(str){
+  if(!str) return null;
+  var p = str.split('/');
+  if(p.length!==3) return null;
+  var d = new Date(+p[2], +p[1]-1, +p[0]);
+  return isNaN(d.getTime()) ? null : d;
+}
+function ageDaysOf(entry){
+  var d = entry.dateAddedISO ? new Date(entry.dateAddedISO) : ukDateToDate(entry.dateAdded);
+  if(!d || isNaN(d.getTime())) return null;
+  return Math.max(0, Math.floor((Date.now()-d.getTime())/86400000));
+}
+function ageChipHTML(days){
+  if(days==null) return '<span class="muted mono">—</span>';
+  var color='var(--blue)', label='Fresh';
+  if(days>=90){ color='var(--green)'; label='Well Rested'; }
+  else if(days>=30){ color='var(--ochre)'; label='Resting'; }
+  return '<span class="status-chip" style="color:'+color+';">'+days+'d · '+label+'</span>';
+}
+
+/* ---------------- FLAGS ---------------- */
+var FLAGS = {
+  'Cuba':'<svg class="flag-icon" width="18" height="12" viewBox="0 0 18 12"><rect width="18" height="12" fill="#fff"/><rect y="0" width="18" height="2.4" fill="#002a8f"/><rect y="4.8" width="18" height="2.4" fill="#002a8f"/><rect y="9.6" width="18" height="2.4" fill="#002a8f"/><path d="M0 0 L7.5 6 L0 12 Z" fill="#cc0000"/></svg>',
+  'Dominican Republic':'<svg class="flag-icon" width="18" height="12" viewBox="0 0 18 12"><rect width="18" height="12" fill="#fff"/><rect width="7.5" height="5" fill="#002d62"/><rect x="10.5" width="7.5" height="5" fill="#ce1126"/><rect y="7" width="7.5" height="5" fill="#ce1126"/><rect x="10.5" y="7" width="7.5" height="5" fill="#002d62"/></svg>',
+  'Nicaragua':'<svg class="flag-icon" width="18" height="12" viewBox="0 0 18 12"><rect width="18" height="4" fill="#0067c6"/><rect y="4" width="18" height="4" fill="#fff"/><rect y="8" width="18" height="4" fill="#0067c6"/></svg>',
+  'Honduras':'<svg class="flag-icon" width="18" height="12" viewBox="0 0 18 12"><rect width="18" height="4" fill="#0073cf"/><rect y="4" width="18" height="4" fill="#fff"/><rect y="8" width="18" height="4" fill="#0073cf"/><circle cx="7" cy="6" r="0.6" fill="#0073cf"/><circle cx="9" cy="6" r="0.6" fill="#0073cf"/><circle cx="11" cy="6" r="0.6" fill="#0073cf"/></svg>'
+};
+var FLAG_FALLBACK = '<svg class="flag-icon" width="18" height="12" viewBox="0 0 18 12"><rect width="18" height="12" fill="none" stroke="#9c8b6f" stroke-width="1"/><line x1="0" y1="0" x2="18" y2="12" stroke="#9c8b6f" stroke-width="1"/></svg>';
+function flagSVG(country){ return FLAGS[country] || FLAG_FALLBACK; }
+
+/* ---------------- SMOKE TIME + BAND STYLING ---------------- */
+function smokeBlockHTML(minutes){
+  var pct = Math.max(6, Math.min(100, Math.round((minutes/120)*100)));
+  return '<div class="smoke-block"><span class="spec-label">Smoke Time</span>'+
+    '<div class="smoke-row"><div class="smoke-bar"><div class="smoke-fill" style="width:'+pct+'%;"></div></div>'+
+    '<span class="smoke-value">'+minutes+' min</span></div></div>';
+}
+function bandColour(strength){
+  var map = {'Light':'#cbb98a','Medium-Light':'#b8874f','Medium':'#8a5a2e','Medium-Full':'#6a4a35','Full':'#3f2c22'};
+  return map[strength] || '#8a5a2e';
+}
+
+/* ---------------- ACTIONS ---------------- */
+function addToHumidor(cigarId, cost, cigarObj){
+  var cigar = cigarObj || findCigar(cigarId);
+  if(!cigar) return;
+  var existing = state.humidor.filter(function(h){return h.id===cigarId;})[0];
+  if(existing){
+    existing.quantity += 1;
+    if(cost) existing.actualCost = cost;
+  } else {
+    var entry = {};
+    for(var k in cigar) entry[k]=cigar[k];
+    entry.quantity = 1;
+    entry.actualCost = cost || cigar.retailPrice;
+    var now = new Date();
+    entry.dateAdded = now.toLocaleDateString('en-GB');
+    entry.dateAddedISO = now.toISOString();
+    entry.humidorId = cigarId+'-'+genId();
+    state.humidor.push(entry);
+  }
+  persist(); render();
+}
+function removeFromHumidor(humidorId){
+  var idx=-1;
+  for(var i=0;i<state.humidor.length;i++){ if(state.humidor[i].humidorId===humidorId){idx=i;break;} }
+  if(idx===-1) return;
+  if(state.humidor[idx].quantity>1){ state.humidor[idx].quantity -= 1; }
+  else{ state.humidor.splice(idx,1); }
+  persist(); render();
+}
+function markAsSmoked(humidorId){
+  var cigar = state.humidor.filter(function(h){return h.humidorId===humidorId;})[0];
+  if(!cigar) return;
+  var notes = window.prompt('Any tasting notes for this smoke? (optional)') || '';
+  var now = new Date();
+  var entry = {};
+  for(var k in cigar) entry[k]=cigar[k];
+  entry.dateSmoked = now.toLocaleDateString('en-GB');
+  entry.dateSmokedISO = now.toISOString();
+  entry.timeSmoked = now.toLocaleTimeString('en-GB');
+  entry.notes = notes;
+  entry.costPerMinute = (cigar.actualCost/cigar.smokeTime).toFixed(2);
+  state.smokeHistory.push(entry);
+  removeFromHumidor(humidorId);
+}
+function toggleCompare(id){
+  var idx = state.compareList.indexOf(id);
+  if(idx>=0){ state.compareList.splice(idx,1); }
+  else if(state.compareList.length<4){ state.compareList.push(id); }
+  render();
+}
+function clearCompare(){ state.compareList=[]; render(); }
+function addCustomCigar(form){
+  if(!form.brand || !form.vitola){ alert('Brand and Vitola are required'); return; }
+  var flavors = form.flavors.split(',').map(function(s){return s.trim();}).filter(Boolean);
+  var pairings = form.pairings.split(',').map(function(s){return s.trim();}).filter(Boolean);
+  var cigar = {
+    id: 'bespoke-'+genId(),
+    brand: form.brand, vitola: form.vitola, size: form.size||'—',
+    smokeTime: parseInt(form.smokeTime,10)||60,
+    retailPrice: parseFloat(form.retailPrice)||10,
+    strength: form.strength||'Medium',
+    flavors: flavors.length?flavors:['bespoke'],
+    pairings: pairings.length?pairings:['Your choice'],
+    country: form.country||'Unknown',
+    rating: 8.0,
+    website: form.website||''
+  };
+  state.customLibrary.push(cigar);
+  persist();
+  addToHumidor(cigar.id, cigar.retailPrice);
+}
+function deleteFromResearch(id){
+  if(!window.confirm('Remove this cigar from your Research library?\n\nAny stock already in your Humidor will be kept.')) return;
+  var isSeed = SEED_CIGARS.some(function(c){return c.id===id;});
+  if(isSeed){
+    if(state.hiddenSeedIds.indexOf(id)===-1) state.hiddenSeedIds.push(id);
+  } else {
+    state.customLibrary = state.customLibrary.filter(function(c){return c.id!==id;});
+  }
+  state.compareList = state.compareList.filter(function(cid){return cid!==id;});
+  persist(); render();
+}
+function addToWishlist(id){
+  var cigar = findCigar(id);
+  if(!cigar) return;
+  if(state.wishlist.some(function(w){return w.id===id;})){ alert('That cigar is already on your wishlist.'); return; }
+  var entry = {};
+  for(var k in cigar) entry[k]=cigar[k];
+  entry.wishlistId = id+'-'+genId();
+  entry.dateAdded = new Date().toLocaleDateString('en-GB');
+  state.wishlist.push(entry);
+  persist(); render();
+}
+function removeFromWishlist(wishlistId){
+  state.wishlist = state.wishlist.filter(function(w){return w.wishlistId!==wishlistId;});
+  persist(); render();
+}
+function moveWishlistToHumidor(wishlistId){
+  var item = state.wishlist.filter(function(w){return w.wishlistId===wishlistId;})[0];
+  if(!item) return;
+  addToHumidor(item.id, item.retailPrice, item);
+  removeFromWishlist(wishlistId);
+}
+function exportData(){
+  var payload = {
+    exportedAt: new Date().toISOString(),
+    humidor: state.humidor, smokeHistory: state.smokeHistory, customLibrary: state.customLibrary,
+    wishlist: state.wishlist, hiddenSeedIds: state.hiddenSeedIds
+  };
+  var blob = new Blob([JSON.stringify(payload,null,2)], {type:'application/json'});
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url; a.download = 'humidor-backup-'+new Date().toISOString().slice(0,10)+'.json';
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+function importDataFromFile(file){
+  var reader = new FileReader();
+  reader.onload = function(evt){
+    try{
+      var data = JSON.parse(evt.target.result);
+      state.humidor = data.humidor || [];
+      state.smokeHistory = data.smokeHistory || [];
+      state.customLibrary = data.customLibrary || [];
+      state.wishlist = data.wishlist || [];
+      state.hiddenSeedIds = data.hiddenSeedIds || [];
+      persist();
+      alert('Backup restored successfully.');
+      render();
+    }catch(err){
+      alert('That file could not be read. Please choose a valid backup .json file.');
+    }
+  };
+  reader.readAsText(file);
+}
+function normaliseCigarRecord(raw){
+  var flavors = Array.isArray(raw.flavors) ? raw.flavors : (raw.flavors? String(raw.flavors).split(',').map(function(s){return s.trim();}).filter(Boolean) : ['—']);
+  var pairings = Array.isArray(raw.pairings) ? raw.pairings : (raw.pairings? String(raw.pairings).split(',').map(function(s){return s.trim();}).filter(Boolean) : ['—']);
+  return {
+    id: raw.id || ('checkout-'+genId()),
+    brand: raw.brand || 'Unknown',
+    vitola: raw.vitola || 'Unknown',
+    size: raw.size || '—',
+    smokeTime: parseInt(raw.smokeTime,10) || 60,
+    retailPrice: parseFloat(raw.retailPrice) || 0,
+    strength: STRENGTHS.indexOf(raw.strength)>=0 ? raw.strength : 'Medium',
+    flavors: flavors.length?flavors:['—'],
+    pairings: pairings.length?pairings:['—'],
+    country: raw.country || 'Unknown',
+    rating: parseFloat(raw.rating) || 8.0,
+    website: raw.website || ''
+  };
+}
+function importCigarsFromFile(file){
+  var reader = new FileReader();
+  reader.onload = function(evt){
+    try{
+      var data = JSON.parse(evt.target.result);
+      var list = Array.isArray(data) ? data : (Array.isArray(data.cigars) ? data.cigars : [data]);
+      if(!list.length){ alert('No cigar entries found in that file.'); return; }
+      var lib = library();
+      var added=0, skipped=0;
+      list.forEach(function(raw){
+        var cigar = normaliseCigarRecord(raw);
+        var dupe = lib.concat(state.customLibrary).some(function(c){
+          return c.brand.toLowerCase()===cigar.brand.toLowerCase() && c.vitola.toLowerCase()===cigar.vitola.toLowerCase();
+        });
+        if(dupe){ skipped++; return; }
+        state.customLibrary.push(cigar);
+        added++;
+      });
+      persist();
+      alert('Imported '+added+' cigar'+(added===1?'':'s')+' into your Research library.'+(skipped?' ('+skipped+' skipped as likely duplicates.)':''));
+      render();
+    }catch(err){
+      alert('That file could not be read. Please choose a valid cigar-import .json file.');
+    }
+  };
+  reader.readAsText(file);
+}
+
+/* ---------------- CHART HELPERS (pure SVG/CSS, no deps) ---------------- */
+function pieChartHTML(labels, data, size){
+  size = size||160;
+  var total=0; for(var i=0;i<data.length;i++) total+=data[i];
+  if(total<=0) return '<p class="muted center">No data yet</p>';
+  var stops=[]; var acc=0;
+  for(var i=0;i<data.length;i++){
+    var pct = data[i]/total*100;
+    stops.push(PALETTE[i%PALETTE.length]+' '+acc.toFixed(2)+'% '+(acc+pct).toFixed(2)+'%');
+    acc += pct;
+  }
+  var gradient = 'conic-gradient(' + stops.join(',') + ')';
+  var legend = labels.map(function(l,i){
+    return '<div class="legend-item"><span class="swatch" style="background:'+PALETTE[i%PALETTE.length]+'"></span>'+esc(l)+' ('+data[i]+')</div>';
+  }).join('');
+  return '<div style="width:'+size+'px;height:'+size+'px;border-radius:50%;background:'+gradient+';margin:0 auto;border:1px solid var(--paper-edge);"></div>'+
+         '<div class="legend">'+legend+'</div>';
+}
+function barChartHTML(labels, data){
+  var max = Math.max.apply(null, data.concat([1]));
+  var rows = labels.map(function(l,i){
+    var pct = (data[i]/max*100).toFixed(1);
+    return '<div style="display:flex;align-items:center;gap:10px;margin:7px 0;">'+
+      '<div class="mono" style="width:140px;font-size:11px;color:var(--ink-soft);text-align:right;flex-shrink:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">'+esc(l)+'</div>'+
+      '<div style="flex:1;background:var(--paper);border-radius:3px;overflow:hidden;height:16px;">'+
+        '<div style="width:'+pct+'%;background:'+PALETTE[i%PALETTE.length]+';height:100%;"></div>'+
+      '</div>'+
+      '<div class="mono" style="width:28px;font-size:11px;font-weight:700;color:var(--ink);">'+data[i]+'</div>'+
+    '</div>';
+  }).join('');
+  return '<div>'+rows+'</div>';
+}
+function lineChartHTML(labels, data){
+  if(data.length===0) return '<p class="muted center">No data yet</p>';
+  var w=520,h=210,padL=54,padR=16,padT=16,padB=32;
+  var innerW=w-padL-padR, innerH=h-padT-padB;
+  var nums = data.map(Number);
+  var max = Math.max.apply(null, nums.concat([1]));
+  var points = nums.map(function(v,i){
+    var x = nums.length===1 ? padL+innerW/2 : padL + (i/(nums.length-1))*innerW;
+    var y = padT + innerH - (v/(max||1))*innerH;
+    return {x:x,y:y,v:v,label:labels[i]};
+  });
+  var pathD = points.map(function(p,i){ return (i===0?'M':'L')+p.x.toFixed(1)+','+p.y.toFixed(1); }).join(' ');
+  var areaD = pathD + ' L'+points[points.length-1].x.toFixed(1)+','+(padT+innerH)+' L'+points[0].x.toFixed(1)+','+(padT+innerH)+' Z';
+  var circles = points.map(function(p){
+    return '<circle cx="'+p.x.toFixed(1)+'" cy="'+p.y.toFixed(1)+'" r="3" fill="#1c2530"><title>'+esc(p.label)+': '+money(p.v)+'</title></circle>';
+  }).join('');
+  return '<svg viewBox="0 0 '+w+' '+h+'" style="width:100%;height:auto;max-width:'+w+'px;">'+
+    '<line x1="'+padL+'" y1="'+padT+'" x2="'+padL+'" y2="'+(padT+innerH)+'" stroke="#c7bb98"/>'+
+    '<line x1="'+padL+'" y1="'+(padT+innerH)+'" x2="'+(padL+innerW)+'" y2="'+(padT+innerH)+'" stroke="#c7bb98"/>'+
+    '<path d="'+areaD+'" fill="rgba(28,37,48,0.08)" stroke="none"/>'+
+    '<path d="'+pathD+'" fill="none" stroke="#1c2530" stroke-width="2"/>'+
+    circles+
+    '<text x="4" y="'+(padT+4)+'" font-size="10" font-family="ui-monospace,monospace" fill="#37455a">'+money(max)+'</text>'+
+    '<text x="4" y="'+(padT+innerH)+'" font-size="10" font-family="ui-monospace,monospace" fill="#37455a">£0</text>'+
+    '<text x="'+padL+'" y="'+(h-6)+'" font-size="10" font-family="ui-monospace,monospace" fill="#37455a">'+esc(points[0].label)+'</text>'+
+    '<text x="'+(padL+innerW-40)+'" y="'+(h-6)+'" font-size="10" font-family="ui-monospace,monospace" fill="#37455a">'+esc(points[points.length-1].label)+'</text>'+
+  '</svg>';
+}
+function scatterChartHTML(points){
+  if(points.length===0) return '<p class="muted center">No data yet</p>';
+  var w=520,h=250,padL=58,padR=16,padT=16,padB=40;
+  var innerW=w-padL-padR, innerH=h-padT-padB;
+  var xs=points.map(function(p){return p.x;}), ys=points.map(function(p){return p.y;});
+  var xMax=Math.max.apply(null,xs)*1.1||1, yMax=Math.max.apply(null,ys)*1.15||1;
+  var circles = points.map(function(p){
+    var cx = padL + (p.x/xMax)*innerW;
+    var cy = padT + innerH - (p.y/yMax)*innerH;
+    return '<circle cx="'+cx.toFixed(1)+'" cy="'+cy.toFixed(1)+'" r="4.5" fill="#b8874f" fill-opacity="0.85" stroke="#1c2530" stroke-width="1">'+
+      '<title>'+esc(p.label)+': '+p.x+'m, £'+p.y+'/min</title></circle>';
+  }).join('');
+  return '<svg viewBox="0 0 '+w+' '+h+'" style="width:100%;height:auto;max-width:'+w+'px;">'+
+    '<line x1="'+padL+'" y1="'+padT+'" x2="'+padL+'" y2="'+(padT+innerH)+'" stroke="#c7bb98"/>'+
+    '<line x1="'+padL+'" y1="'+(padT+innerH)+'" x2="'+(padL+innerW)+'" y2="'+(padT+innerH)+'" stroke="#c7bb98"/>'+
+    '<text x="'+(padL+innerW/2-60)+'" y="'+(h-6)+'" font-size="10" font-family="ui-monospace,monospace" fill="#37455a">SMOKE TIME (MIN)</text>'+
+    '<text x="10" y="'+(padT+innerH/2)+'" font-size="10" font-family="ui-monospace,monospace" fill="#37455a" transform="rotate(-90,10,'+(padT+innerH/2)+')">£/MIN</text>'+
+    circles+
+  '</svg>';
+}
+
+/* ---------------- RENDER PIECES ---------------- */
+function computeStats(){
+  var totalCigars=0, totalValue=0, totalSmokeTime=0, totalWeightedTime=0, totalWeightedCost=0;
+  var brands={}; var ages=[];
+  state.humidor.forEach(function(h){
+    totalCigars+=h.quantity; totalValue+=h.actualCost*h.quantity; totalSmokeTime+=h.smokeTime;
+    totalWeightedTime+=h.smokeTime*h.quantity; totalWeightedCost+=h.actualCost*h.quantity;
+    brands[h.brand]=true;
+    var a = ageDaysOf(h); if(a!=null) ages.push(a);
+  });
+  return {
+    totalCigars: totalCigars, uniqueBrands: Object.keys(brands).length, totalValue: totalValue,
+    avgSmokeTime: state.humidor.length? Math.round(totalSmokeTime/state.humidor.length):0,
+    costPerMinute: totalWeightedTime>0 ? (totalWeightedCost/totalWeightedTime).toFixed(2) : '0.00',
+    totalSmoked: state.smokeHistory.length,
+    avgAge: ages.length ? Math.round(ages.reduce(function(a,b){return a+b;},0)/ages.length) : null,
+    wishlistCount: state.wishlist.length
+  };
+}
+function kpiBoardHTML(){
+  var s = computeStats();
+  function cell(label,value){ return '<div class="kpi-cell"><div class="label">'+label+'</div><div class="value">'+value+'</div></div>'; }
+  return '<div class="kpi-board">'+
+    cell('Total Cigars', s.totalCigars)+
+    cell('Unique Brands', s.uniqueBrands)+
+    cell('Total Value', money(s.totalValue))+
+    cell('Avg Smoke Time', s.avgSmokeTime+'m')+
+    cell('Cost/Min', '£'+s.costPerMinute)+
+    cell('Avg Age', s.avgAge!=null?s.avgAge+'d':'—')+
+    cell('Smoked', s.totalSmoked)+
+    cell('Wishlist', s.wishlistCount)+
+  '</div>';
+}
+
+function renderDashboard(){
+  var html = kpiBoardHTML();
+  if(state.smokeHistory.length>0){
+    var recent = state.smokeHistory.slice(-5).slice().reverse();
+    html += '<div class="card"><h3 class="section-title">Recent Smokes</h3>';
+    html += recent.map(function(e){
+      return '<div class="recent-item"><div>'+
+        '<p style="margin:0;font-weight:600;">'+esc(e.brand)+' — '+esc(e.vitola)+'</p>'+
+        '<p class="muted mono" style="margin:2px 0 0;">'+esc(e.dateSmoked)+' · '+e.smokeTime+'m</p>'+
+        (e.notes? '<p style="margin:4px 0 0;font-style:italic;font-size:12.5px;">"'+esc(e.notes)+'"</p>':'')+
+        '</div><div style="text-align:right;">'+
+        '<p class="mono" style="margin:0;font-weight:700;">'+money(e.actualCost)+'</p>'+
+        '<p class="muted mono" style="margin:2px 0 0;">£'+e.costPerMinute+'/min</p>'+
+        '</div></div>';
+    }).join('');
+    html += '</div>';
+  } else {
+    html += '<div class="card empty">NO SMOKES LOGGED YET — VISIT THE HUMIDOR TAB ONCE YOU\'VE ADDED CIGARS</div>';
+  }
+  return html;
+}
+
+function renderAnalytics(){
+  if(state.humidor.length===0 && state.smokeHistory.length===0){
+    return '<div class="card empty">ADD CIGARS TO YOUR HUMIDOR AND SMOKE A FEW TO SEE YOUR CHARTS</div>';
+  }
+  var parts=[];
+  var sorted = state.smokeHistory.slice().sort(function(a,b){
+    return new Date(a.dateSmokedISO||a.dateSmoked) - new Date(b.dateSmokedISO||b.dateSmoked);
+  });
+  if(sorted.length>0){
+    var cum=0;
+    var labels = sorted.map(function(s){return s.dateSmoked;});
+    var data = sorted.map(function(s){ cum+=parseFloat(s.actualCost); return cum.toFixed(2); });
+    parts.push('<div class="card"><h3 class="chart-title">Cumulative Spend on Smoked Cigars</h3>'+lineChartHTML(labels,data)+'</div>');
+  }
+  var brandCounts={};
+  state.humidor.forEach(function(h){ brandCounts[h.brand]=(brandCounts[h.brand]||0)+h.quantity; });
+  var bLabels = Object.keys(brandCounts);
+  if(bLabels.length>0){
+    parts.push('<div class="card"><h3 class="chart-title">Humidor Composition by Brand</h3>'+pieChartHTML(bLabels, bLabels.map(function(l){return brandCounts[l];}))+'</div>');
+  }
+  var strCounts={};
+  state.humidor.forEach(function(h){ strCounts[h.strength]=(strCounts[h.strength]||0)+h.quantity; });
+  var sLabels = Object.keys(strCounts);
+  if(sLabels.length>0){
+    parts.push('<div class="card"><h3 class="chart-title">Strength Distribution</h3>'+pieChartHTML(sLabels, sLabels.map(function(l){return strCounts[l];}))+'</div>');
+  }
+  if(state.humidor.length>0){
+    var pts = state.humidor.map(function(h){
+      return {x:h.smokeTime, y:parseFloat((h.actualCost/h.smokeTime).toFixed(2)), label:h.brand+' '+h.vitola};
+    });
+    parts.push('<div class="card"><h3 class="chart-title">Smoke Time vs Cost per Minute</h3>'+scatterChartHTML(pts)+'</div>');
+  }
+  var smokedCounts={};
+  state.smokeHistory.forEach(function(s){ smokedCounts[s.brand]=(smokedCounts[s.brand]||0)+1; });
+  var mLabels = Object.keys(smokedCounts);
+  if(mLabels.length>0){
+    parts.push('<div class="card"><h3 class="chart-title">Most Smoked Brands</h3>'+barChartHTML(mLabels, mLabels.map(function(l){return smokedCounts[l];}))+'</div>');
+  }
+  return '<div class="charts-grid">'+parts.join('')+'</div>';
+}
+
+function renderHumidor(){
+  var filtered = state.humidor.filter(function(c){
+    var matchBrand = c.brand.toLowerCase().indexOf(state.searchBrand.toLowerCase())>=0;
+    var matchStrength = state.filterStrength==='All' || c.strength.indexOf(state.filterStrength)>=0;
+    return matchBrand && matchStrength;
+  });
+  var html = '<div class="filter-bar">'+
+    '<input type="text" id="humidor-search" placeholder="Filter by brand&hellip;" value="'+esc(state.searchBrand)+'">'+
+    '<select id="humidor-strength-filter">'+
+      ['All','Light','Medium','Full'].map(function(s){
+        return '<option value="'+s+'"'+(state.filterStrength===s?' selected':'')+'>'+(s==='All'?'All Strengths':s)+'</option>';
+      }).join('')+
+    '</select>'+
+  '</div>';
+  if(filtered.length===0){
+    html += '<div class="card empty">YOUR HUMIDOR IS EMPTY<br><br><button class="btn-primary" data-action="goto-research">Browse Research</button></div>';
+    return html;
+  }
+  html += '<div class="card" style="padding:0;overflow-x:auto;"><table><thead><tr>'+
+    '<th>Cigar</th><th class="center">Qty</th><th class="center">Strength</th><th class="center">Age</th>'+
+    '<th class="num">Smoke Time</th><th class="num">Cost</th><th class="num">£/min</th><th class="center">Action</th>'+
+    '</tr></thead><tbody>';
+  filtered.forEach(function(c){
+    html += '<tr>'+
+      '<td><p style="margin:0;font-weight:600;">'+esc(c.brand)+' '+esc(c.vitola)+'</p>'+
+      '<p class="muted mono" style="margin:2px 0 0;">'+esc(c.size)+' · '+esc(c.country)+'</p>'+
+      '<div>'+c.flavors.map(function(f){return '<span class="tag">'+esc(f)+'</span>';}).join('')+'</div></td>'+
+      '<td class="center" style="font-weight:600;">'+c.quantity+'</td>'+
+      '<td class="center muted mono" style="font-size:11px;">'+esc(c.strength)+'</td>'+
+      '<td class="center">'+ageChipHTML(ageDaysOf(c))+'</td>'+
+      '<td class="num">'+c.smokeTime+'m</td>'+
+      '<td class="num">'+money(c.actualCost)+'</td>'+
+      '<td class="num" style="font-weight:700;">£'+(c.actualCost/c.smokeTime).toFixed(2)+'</td>'+
+      '<td class="center" style="white-space:nowrap;">'+
+        '<button class="btn-sm btn-ghost" data-action="smoke" data-id="'+esc(c.humidorId)+'">Smoke</button> '+
+        '<button class="btn-sm btn-danger" data-action="remove" data-id="'+esc(c.humidorId)+'">Remove</button>'+
+      '</td></tr>';
+  });
+  html += '</tbody></table></div>';
+  return html;
+}
+
+function passCardHTML(c, comparing, compareDisabled, showDelete){
+  return '<div class="pass'+(comparing?' comparing':'')+'">'+
+    '<div class="pass-top">'+
+      '<div class="pass-eyebrow"><span class="eyebrow-country">'+flagSVG(c.country)+esc(c.country)+'</span>'+
+        '<span class="status-chip" style="color:var(--brass);">★ '+c.rating+'</span></div>'+
+      '<div class="pass-name">'+esc(c.brand)+'</div>'+
+      '<div class="pass-specs">'+
+        '<div><span class="spec-label">Vitola</span><span class="spec-value">'+esc(c.vitola)+'</span></div>'+
+        '<div><span class="spec-label">Size</span><span class="spec-value">'+esc(c.size)+'</span></div>'+
+      '</div>'+
+      smokeBlockHTML(c.smokeTime)+
+      '<div class="price-row"><span class="spec-label">Retail Price</span><span class="price-value">'+money(c.retailPrice)+'</span></div>'+
+      '<div class="pass-flavours">'+c.flavors.join(' · ')+'</div>'+
+    '</div>'+
+    '<div class="perforation"></div>'+
+    '<div class="cigar-band" style="background:'+bandColour(c.strength)+';"><span class="band-text">'+esc(c.strength)+'</span></div>'+
+    '<div class="pass-footer"><span class="mono" style="font-size:11px;color:var(--ink-soft);">£'+(c.retailPrice/c.smokeTime).toFixed(2)+'/min</span>'+
+      (c.website? '<a class="source-link" href="'+esc(c.website)+'" target="_blank" rel="noopener">Source</a>' : '<span></span>')+
+    '</div>'+
+    '<div class="pass-actions">'+
+      '<button class="btn-primary btn-sm" data-action="add-humidor" data-id="'+esc(c.id)+'">+ Humidor</button>'+
+      '<button class="btn-ghost btn-sm" data-action="add-wishlist" data-id="'+esc(c.id)+'">+ Wishlist</button>'+
+      '<button class="'+(comparing?'btn-primary':'btn-ghost')+' btn-sm" '+(compareDisabled?'disabled':'')+' data-action="toggle-compare" data-id="'+esc(c.id)+'">'+(comparing?'Comparing':'Compare')+'</button>'+
+      (showDelete? '<button class="btn-danger btn-sm" data-action="delete-research" data-id="'+esc(c.id)+'">Remove</button>' : '')+
+    '</div></div>';
+}
+
+function renderResearch(){
+  var lib = library();
+  var results = lib.filter(function(c){
+    var q = state.rSearch.toLowerCase();
+    var matchSearch = q==='' || c.brand.toLowerCase().indexOf(q)>=0 || c.vitola.toLowerCase().indexOf(q)>=0 ||
+      c.flavors.some(function(f){return f.toLowerCase().indexOf(q)>=0;});
+    var matchCountry = state.rCountry==='All' || c.country===state.rCountry;
+    var matchStrength = state.rStrength==='All' || c.strength===state.rStrength;
+    var matchPrice = state.rMaxPrice==='' || c.retailPrice<=parseFloat(state.rMaxPrice);
+    return matchSearch && matchCountry && matchStrength && matchPrice;
+  });
+  results.sort(function(a,b){
+    switch(state.rSort){
+      case 'rating-desc': return b.rating-a.rating;
+      case 'price-asc': return a.retailPrice-b.retailPrice;
+      case 'price-desc': return b.retailPrice-a.retailPrice;
+      case 'cpm-asc': return (a.retailPrice/a.smokeTime)-(b.retailPrice/b.smokeTime);
+      case 'smoketime-desc': return b.smokeTime-a.smokeTime;
+      case 'smoketime-asc': return a.smokeTime-b.smokeTime;
+      default: return 0;
+    }
+  });
+  var countries = [];
+  SEED_CIGARS.concat(state.customLibrary).forEach(function(c){ if(countries.indexOf(c.country)===-1) countries.push(c.country); });
+  countries.sort();
+
+  var html = '<div class="card" style="margin-bottom:18px;">'+
+    '<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:14px;">'+
+      '<h3 class="section-title" style="margin:0;">Add a Bespoke Cigar</h3>'+
+      '<label class="btn-ghost btn-sm" style="display:inline-flex;align-items:center;cursor:pointer;">Import Cigars (JSON)'+
+        '<input type="file" id="import-cigars-input" accept=".json" style="display:none">'+
+      '</label>'+
+    '</div>'+
+    '<p class="hint" style="margin:-6px 0 14px;">Ask Claude to build a cigar-import file from a checkout confirmation, receipt, or product page — it fills any missing details (smoke time, strength, tasting notes, pairings) from research, then hand you a .json file to import here.</p>'+
+    '<form id="custom-cigar-form">'+
+      '<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">'+
+        '<input type="text" name="brand" placeholder="Brand*" required>'+
+        '<input type="text" name="vitola" placeholder="Vitola (e.g., Robusto)*" required>'+
+        '<input type="text" name="size" placeholder="Size (e.g., 5x50)">'+
+        '<input type="text" name="country" placeholder="Country">'+
+        '<input type="number" name="smokeTime" placeholder="Smoke Time (minutes)">'+
+        '<input type="number" step="0.01" name="retailPrice" placeholder="Retail Price (£)">'+
+        '<select name="strength">'+STRENGTHS.map(function(s){return '<option value="'+s+'">'+s+'</option>';}).join('')+'</select>'+
+        '<input type="text" name="flavors" placeholder="Flavours (comma-separated)">'+
+      '</div>'+
+      '<input type="text" name="pairings" placeholder="Pairings (comma-separated, e.g., Rum, Whisky)" style="width:100%;margin-bottom:12px;">'+
+      '<input type="text" name="website" placeholder="Website / source URL (optional)" style="width:100%;margin-bottom:12px;">'+
+      '<button type="submit" class="btn-primary" style="width:100%;">Add Bespoke Cigar</button>'+
+    '</form></div>';
+
+  html += '<div class="card" style="margin-bottom:18px;">'+
+    '<h3 class="section-title">Research Library — '+results.length+' Cigars</h3>'+
+    '<div class="filter-bar">'+
+      '<input type="text" id="r-search" placeholder="Search brand, vitola, flavour&hellip;" value="'+esc(state.rSearch)+'">'+
+      '<select id="r-country"><option value="All">All Countries</option>'+
+        countries.map(function(c){return '<option value="'+esc(c)+'"'+(state.rCountry===c?' selected':'')+'>'+esc(c)+'</option>';}).join('')+
+      '</select>'+
+      '<select id="r-strength"><option value="All">All Strengths</option>'+
+        STRENGTHS.map(function(s){return '<option value="'+s+'"'+(state.rStrength===s?' selected':'')+'>'+s+'</option>';}).join('')+
+      '</select>'+
+      '<input type="number" id="r-maxprice" placeholder="Max price (£)" value="'+esc(state.rMaxPrice)+'">'+
+    '</div>'+
+    '<div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;">'+
+      '<label class="muted mono" style="font-size:11px;text-transform:uppercase;letter-spacing:1px;">Sort:</label>'+
+      '<select id="r-sort">'+
+        [['rating-desc','Rating (High to Low)'],['price-asc','Price (Low to High)'],['price-desc','Price (High to Low)'],
+         ['cpm-asc','Cost per Minute (Best Value)'],['smoketime-desc','Smoke Time (Longest)'],['smoketime-asc','Smoke Time (Shortest)']]
+        .map(function(o){return '<option value="'+o[0]+'"'+(state.rSort===o[0]?' selected':'')+'>'+o[1]+'</option>';}).join('')+
+      '</select>'+
+      (state.compareList.length>0 ? '<span class="mono" style="font-size:11px;color:var(--brass);font-weight:700;">'+state.compareList.length+'/4 SELECTED</span>' : '')+
+    '</div>'+
+    '<p class="hint">Add to Wishlist, or Remove to hide a cigar from this library — your Humidor stock is never affected.</p>'+
+    '</div>';
+
+  if(state.compareList.length>0){
+    var compareCigars = state.compareList.map(function(id){return findCigar(id);}).filter(Boolean);
+    var rows = [
+      ['Vitola', function(c){return c.vitola;}], ['Size', function(c){return c.size;}],
+      ['Country', function(c){return c.country;}], ['Strength', function(c){return c.strength;}],
+      ['Rating', function(c){return '★ '+c.rating;}], ['Smoke Time', function(c){return c.smokeTime+'m';}],
+      ['Retail Price', function(c){return money(c.retailPrice);}],
+      ['Cost / min', function(c){return '£'+(c.retailPrice/c.smokeTime).toFixed(2);}],
+      ['Flavours', function(c){return c.flavors.join(', ');}], ['Pairings', function(c){return c.pairings.join(', ');}]
+    ];
+    html += '<div class="card" style="margin-bottom:18px;overflow-x:auto;">'+
+      '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">'+
+      '<h3 class="section-title" style="margin:0;">Comparing '+compareCigars.length+' Cigar'+(compareCigars.length>1?'s':'')+'</h3>'+
+      '<button class="btn-ghost btn-sm" data-action="clear-compare">Clear</button></div>'+
+      '<table><thead><tr><th>Attribute</th>'+compareCigars.map(function(c){return '<th>'+esc(c.brand)+'</th>';}).join('')+'</tr></thead><tbody>'+
+      rows.map(function(r){
+        return '<tr><td style="font-weight:700;">'+r[0]+'</td>'+compareCigars.map(function(c){return '<td>'+esc(r[1](c))+'</td>';}).join('')+'</tr>';
+      }).join('')+
+      '</tbody></table></div>';
+  }
+
+  html += '<div class="passes-grid">';
+  if(results.length===0){
+    html += '<div class="card empty" style="grid-column:1/-1;">NO CIGARS MATCH YOUR FILTERS</div>';
+  } else {
+    results.forEach(function(c){
+      var comparing = state.compareList.indexOf(c.id)>=0;
+      var disabled = !comparing && state.compareList.length>=4;
+      html += passCardHTML(c, comparing, disabled, true);
+    });
+  }
+  html += '</div>';
+  return html;
+}
+
+function renderWishlist(){
+  if(state.wishlist.length===0){
+    return '<div class="card empty">YOUR WISHLIST IS EMPTY — BROWSE RESEARCH AND ADD ANYTHING THAT CATCHES YOUR EYE</div>';
+  }
+  var html = '<div class="passes-grid">';
+  state.wishlist.forEach(function(w){
+    html += '<div class="pass">'+
+      '<div class="pass-top">'+
+        '<div class="pass-eyebrow"><span class="eyebrow-country">'+flagSVG(w.country)+esc(w.country)+'</span>'+
+          '<span class="status-chip" style="color:var(--brass);">★ '+w.rating+'</span></div>'+
+        '<div class="pass-name">'+esc(w.brand)+'</div>'+
+        '<div class="pass-specs">'+
+          '<div><span class="spec-label">Vitola</span><span class="spec-value">'+esc(w.vitola)+'</span></div>'+
+          '<div><span class="spec-label">Size</span><span class="spec-value">'+esc(w.size)+'</span></div>'+
+        '</div>'+
+        smokeBlockHTML(w.smokeTime)+
+        '<div class="price-row"><span class="spec-label">Retail Price</span><span class="price-value">'+money(w.retailPrice)+'</span></div>'+
+        '<div class="pass-flavours">'+w.flavors.join(' · ')+'</div>'+
+      '</div>'+
+      '<div class="perforation"></div>'+
+      '<div class="cigar-band" style="background:'+bandColour(w.strength)+';"><span class="band-text">'+esc(w.strength)+'</span></div>'+
+      '<div class="pass-footer"><span class="mono" style="font-size:11px;color:var(--ink-soft);">Added '+esc(w.dateAdded)+'</span>'+
+        (w.website? '<a class="source-link" href="'+esc(w.website)+'" target="_blank" rel="noopener">Source</a>' : '<span></span>')+
+      '</div>'+
+      '<div class="pass-actions">'+
+        '<button class="btn-primary btn-sm" data-action="wishlist-to-humidor" data-id="'+esc(w.wishlistId)+'">Move to Humidor</button>'+
+        '<button class="btn-danger btn-sm" data-action="remove-wishlist" data-id="'+esc(w.wishlistId)+'">Remove</button>'+
+      '</div></div>';
+  });
+  html += '</div>';
+  return html;
+}
+
+function renderHistory(){
+  if(state.smokeHistory.length===0){
+    return '<div class="card empty">NO CIGARS SMOKED YET — ENJOY ONE AND LOG IT</div>';
+  }
+  var rows = state.smokeHistory.slice().reverse();
+  var html = '<div class="card" style="padding:0;overflow-x:auto;"><table><thead><tr>'+
+    '<th>Cigar</th><th class="center">Date</th><th class="num">Duration</th><th class="num">Cost</th><th class="num">£/min</th><th>Notes</th>'+
+    '</tr></thead><tbody>';
+  rows.forEach(function(e){
+    html += '<tr><td><p style="margin:0;font-weight:600;">'+esc(e.brand)+' '+esc(e.vitola)+'</p>'+
+      '<p class="muted mono" style="margin:2px 0 0;">'+esc(e.size)+'</p></td>'+
+      '<td class="center mono">'+esc(e.dateSmoked)+'</td>'+
+      '<td class="num">'+e.smokeTime+'m</td>'+
+      '<td class="num">'+money(e.actualCost)+'</td>'+
+      '<td class="num" style="font-weight:700;">£'+e.costPerMinute+'</td>'+
+      '<td style="font-style:italic;font-size:12.5px;">'+(e.notes?esc(e.notes):'-')+'</td></tr>';
+  });
+  html += '</tbody></table></div>';
+  return html;
+}
+
+/* ---------------- APP SHELL ---------------- */
+var TABS = ['dashboard','analytics','humidor','wishlist','research','history'];
+
+function tabLabel(t){
+  if(t==='humidor'){ var qty = state.humidor.reduce(function(a,h){return a+h.quantity;},0); return 'Humidor ('+qty+')'; }
+  if(t==='wishlist'){ return 'Wishlist ('+state.wishlist.length+')'; }
+  if(t==='research'){ return 'Research ('+library().length+')'; }
+  return t;
+}
+function renderApp(){
+  var tabsHtml = TABS.map(function(t){
+    return '<button class="tab-btn'+(state.activeTab===t?' active':'')+'" data-action="set-tab" data-tab="'+t+'">'+tabLabel(t)+'</button>';
+  }).join('');
+  var content;
+  switch(state.activeTab){
+    case 'dashboard': content = renderDashboard(); break;
+    case 'analytics': content = renderAnalytics(); break;
+    case 'humidor': content = renderHumidor(); break;
+    case 'wishlist': content = renderWishlist(); break;
+    case 'research': content = renderResearch(); break;
+    case 'history': content = renderHistory(); break;
+    default: content='';
+  }
+  return '<div class="masthead">'+
+      '<div class="wordmark">The Humidor<small>Cigar &amp; Tasting Ledger</small></div>'+
+      '<div class="data-actions">'+
+        '<button class="btn-ghost btn-sm" data-action="export-data">Export Backup</button>'+
+        '<label class="btn-ghost btn-sm" style="display:inline-flex;align-items:center;" data-action="trigger-restore">Import Backup'+
+          '<input type="file" id="restore-file-input" accept=".json" style="display:none">'+
+        '</label>'+
+      '</div>'+
+    '</div>'+
+    '<div class="tab-bar">'+tabsHtml+'</div>'+
+    '<div>'+content+'</div>';
+}
+
+/* ---------------- RENDER + FOCUS PRESERVATION ---------------- */
+function render(){
+  var root = document.getElementById('root');
+  var active = document.activeElement;
+  var activeId = active && active.id;
+  var selStart, selEnd;
+  if(active && typeof active.selectionStart === 'number'){ selStart=active.selectionStart; selEnd=active.selectionEnd; }
+  root.innerHTML = renderApp();
+  if(activeId){
+    var el = document.getElementById(activeId);
+    if(el){
+      el.focus();
+      if(selStart!=null && el.setSelectionRange){ try{ el.setSelectionRange(selStart, selEnd); }catch(e){} }
+    }
+  }
+}
+
+/* ---------------- EVENT DELEGATION ---------------- */
+function init(){
+  loadState();
+  var root = document.getElementById('root');
+  render();
+
+  root.addEventListener('click', function(e){
+    var btn = e.target.closest('[data-action]');
+    if(!btn) return;
+    var action = btn.getAttribute('data-action');
+    var id = btn.getAttribute('data-id');
+    if(action==='set-tab'){ state.activeTab = btn.getAttribute('data-tab'); render(); }
+    else if(action==='goto-research'){ state.activeTab='research'; render(); }
+    else if(action==='add-humidor'){ addToHumidor(id); }
+    else if(action==='toggle-compare'){ toggleCompare(id); }
+    else if(action==='clear-compare'){ clearCompare(); }
+    else if(action==='smoke'){ markAsSmoked(id); }
+    else if(action==='remove'){ removeFromHumidor(id); }
+    else if(action==='add-wishlist'){ addToWishlist(id); }
+    else if(action==='delete-research'){ deleteFromResearch(id); }
+    else if(action==='wishlist-to-humidor'){ moveWishlistToHumidor(id); }
+    else if(action==='remove-wishlist'){ removeFromWishlist(id); }
+    else if(action==='export-data'){ exportData(); }
+    else if(action==='trigger-restore'){
+      var input = document.getElementById('restore-file-input');
+      if(input && e.target!==input) input.click();
+    }
+  });
+
+  root.addEventListener('input', function(e){
+    var id = e.target.id;
+    if(id==='humidor-search'){ state.searchBrand = e.target.value; render(); }
+    else if(id==='r-search'){ state.rSearch = e.target.value; render(); }
+    else if(id==='r-maxprice'){ state.rMaxPrice = e.target.value; render(); }
+  });
+
+  root.addEventListener('change', function(e){
+    var id = e.target.id;
+    if(id==='humidor-strength-filter'){ state.filterStrength = e.target.value; render(); }
+    else if(id==='r-country'){ state.rCountry = e.target.value; render(); }
+    else if(id==='r-strength'){ state.rStrength = e.target.value; render(); }
+    else if(id==='r-sort'){ state.rSort = e.target.value; render(); }
+    else if(id==='restore-file-input'){
+      var file = e.target.files[0];
+      if(file) importDataFromFile(file);
+    }
+    else if(id==='import-cigars-input'){
+      var cfile = e.target.files[0];
+      if(cfile) importCigarsFromFile(cfile);
+    }
+  });
+
+  root.addEventListener('submit', function(e){
+    if(e.target.id==='custom-cigar-form'){
+      e.preventDefault();
+      var fd = new FormData(e.target);
+      var form = {};
+      fd.forEach(function(v,k){ form[k]=v; });
+      addCustomCigar(form);
+    }
+  });
+}
+
+init();
+})();
+</script>
+</body>
+</html>
