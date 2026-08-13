@@ -161,6 +161,25 @@
       ],
       "country": "Dominican Republic",
       "rating": 8.7
+    },
+    {
+      "id": "checkout-mss51gcq0yop0c",
+      "brand": "Unknown",
+      "name": "",
+      "vitola": "Unknown",
+      "size": "—",
+      "smokeTime": 60,
+      "retailPrice": 0,
+      "strength": "Medium",
+      "flavors": [
+        "—"
+      ],
+      "pairings": [
+        "—"
+      ],
+      "country": "Unknown",
+      "rating": 8,
+      "website": ""
     }
   ],
   "wishlist": [],
@@ -186,5 +205,5 @@
     "oliva-serie-v",
     "bolivar-churchill"
   ],
-  "syncedAt": "2026-08-13T22:01:52.648Z"
+  "syncedAt": "2026-08-13T23:17:21.701Z"
 }
