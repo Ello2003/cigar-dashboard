@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Humidor — Cigar Ledger</title>
+<title>Cigar Dashboard</title>
 <style>
   :root{
     --ink:#1c2530; --ink-soft:#37455a; --paper:#eae4d3; --paper-raised:#f4efe2; --paper-edge:#d5cbac;
@@ -116,7 +116,8 @@
   }
   .eyebrow-country{display:inline-flex;align-items:center;gap:5px;}
   .flag-icon{flex-shrink:0;border:1px solid var(--paper-edge);border-radius:2px;display:block;}
-  .pass-name{font-family:var(--font-display);font-weight:700;font-size:20px;margin:6px 0 4px;}
+  .pass-name{font-family:var(--font-display);font-weight:700;font-size:20px;margin:6px 0 2px;}
+  .pass-line-name{font-family:var(--font-display);font-style:italic;font-size:13px;color:var(--ink-soft);margin:0 0 8px;}
   .pass-specs{display:grid;grid-template-columns:1fr 1fr;gap:8px 14px;margin:10px 0 4px;}
   .spec-label{font-family:var(--font-mono);font-size:9px;letter-spacing:1.2px;text-transform:uppercase;color:var(--ink-soft);display:block;}
   .spec-value{font-family:var(--font-display);font-size:14.5px;font-weight:700;color:var(--ink);}
@@ -143,6 +144,13 @@
 
   ::placeholder{color:#a89a78;}
   .hint{font-size:11.5px;color:var(--ink-soft);margin:10px 0 0;font-family:var(--font-mono);letter-spacing:.2px;}
+
+  .field-toggles{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:12px;padding-top:12px;border-top:1px solid var(--paper-edge);}
+  .field-toggle{display:inline-flex;align-items:center;gap:6px;font-family:var(--font-mono);font-size:11px;letter-spacing:.3px;text-transform:uppercase;color:var(--ink-soft);cursor:pointer;user-select:none;}
+  .field-toggle input{margin:0;accent-color:var(--ink);cursor:pointer;}
+  .field-toggle.off{opacity:.45;}
+  .gh-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;}
+  .version-badge{font-family:var(--font-mono);font-size:11px;color:var(--ink-soft);align-self:center;margin-right:2px;}
 </style>
 </head>
 <body>
@@ -154,28 +162,30 @@
 
 /* ---------------- DATA (UK retail pricing, GBP) ---------------- */
 var SEED_CIGARS = [
-  {id:'cohiba-robusto',brand:'Cohiba',vitola:'Robusto',size:'5x50',smokeTime:50,retailPrice:24.00,strength:'Medium',flavors:['cedar','leather','spice'],pairings:['Rum','Cognac','Whisky'],country:'Cuba',rating:9.0},
-  {id:'davidoff-churchill',brand:'Davidoff',vitola:'Churchill',size:'7x50',smokeTime:75,retailPrice:32.00,strength:'Medium-Light',flavors:['cedar','cream','vanilla'],pairings:['Coffee','Cognac','Port'],country:'Dominican Republic',rating:8.8},
-  {id:'partagas-churchill',brand:'Partagás',vitola:'Churchill',size:'7x47',smokeTime:70,retailPrice:14.00,strength:'Medium',flavors:['earth','spice','leather'],pairings:['Rum','Whisky','Dark Ale'],country:'Cuba',rating:8.5},
-  {id:'mont-blanc-robusto',brand:'Montblanc',vitola:'Robusto',size:'5x50',smokeTime:55,retailPrice:16.00,strength:'Medium-Full',flavors:['cocoa','spice','cedar'],pairings:['Espresso','Bourbon','Cigar'],country:'Nicaragua',rating:8.2},
-  {id:'opus-x-fuente',brand:'Opus X',vitola:'Robusto',size:'5x50',smokeTime:60,retailPrice:38.00,strength:'Full',flavors:['spice','leather','cocoa'],pairings:['Scotch','Bourbon','Dark Chocolate'],country:'Dominican Republic',rating:9.2},
-  {id:'ashton-virgin-sun',brand:'Ashton',vitola:'Torpedo',size:'6.25x52',smokeTime:65,retailPrice:18.00,strength:'Medium',flavors:['cream','vanilla','cedar'],pairings:['Coffee','Bourbon','Brandy'],country:'Dominican Republic',rating:8.3},
-  {id:'bolivar-churchill',brand:'Bolívar',vitola:'Churchill',size:'7x49',smokeTime:75,retailPrice:15.00,strength:'Full',flavors:['earth','leather','pepper'],pairings:['Rum','Whisky','Port'],country:'Cuba',rating:8.7},
-  {id:'padron-1964-robusto',brand:'Padron',vitola:'Robusto',size:'5x50',smokeTime:50,retailPrice:11.00,strength:'Medium-Full',flavors:['pepper','earth','cedar'],pairings:['Rum','Bourbon','Coffee'],country:'Nicaragua',rating:8.6},
-  {id:'arturo-fuente-shark',brand:'Arturo Fuente',vitola:'Shark',size:'8x52',smokeTime:90,retailPrice:22.00,strength:'Medium',flavors:['cedar','cream','spice'],pairings:['Cognac','Whisky','Coffee'],country:'Dominican Republic',rating:8.9},
-  {id:'avo-xo-robusto',brand:'AVO',vitola:'Robusto',size:'5x50',smokeTime:55,retailPrice:20.00,strength:'Medium-Light',flavors:['vanilla','cream','cedar'],pairings:['Coffee','Cognac','Champagne'],country:'Dominican Republic',rating:8.4},
-  {id:'romeo-julieta-churchill',brand:'Romeo y Julieta',vitola:'Churchill',size:'7x47',smokeTime:70,retailPrice:15.50,strength:'Medium',flavors:['cedar','nutty','floral'],pairings:['Rum','Port','Tea'],country:'Cuba',rating:8.4},
-  {id:'my-father-le-bijou',brand:'My Father',vitola:'Robusto',size:'5x52',smokeTime:55,retailPrice:18.00,strength:'Full',flavors:['pepper','cocoa','espresso'],pairings:['Bourbon','Espresso','Dark Rum'],country:'Nicaragua',rating:9.1},
-  {id:'oliva-serie-v',brand:'Oliva',vitola:'Torpedo',size:'6x52',smokeTime:70,retailPrice:15.00,strength:'Full',flavors:['pepper','cocoa','espresso'],pairings:['Whisky','Espresso','Port'],country:'Nicaragua',rating:8.8},
-  {id:'macanudo-hyde-park',brand:'Macanudo',vitola:'Hyde Park',size:'4.9x49',smokeTime:45,retailPrice:11.00,strength:'Light',flavors:['cream','cedar','nutty'],pairings:['Coffee','Port','Light Ale'],country:'Dominican Republic',rating:7.9},
-  {id:'liga-privada-no9',brand:'Liga Privada',vitola:'Robusto',size:'5x52',smokeTime:60,retailPrice:20.00,strength:'Full',flavors:['earth','cocoa','espresso'],pairings:['Bourbon','Scotch','Espresso'],country:'Nicaragua',rating:9.0},
-  {id:'hoyo-de-monterrey',brand:'Hoyo de Monterrey',vitola:'Epicure No.2',size:'4.9x50',smokeTime:50,retailPrice:13.50,strength:'Medium',flavors:['cedar','nutty','earth'],pairings:['Sherry','Rum','Coffee'],country:'Cuba',rating:8.3},
-  {id:'rocky-patel-decade',brand:'Rocky Patel',vitola:'Robusto',size:'5.5x50',smokeTime:60,retailPrice:17.00,strength:'Medium-Full',flavors:['spice','cedar','cocoa'],pairings:['Bourbon','Whisky','Coffee'],country:'Honduras',rating:8.5},
-  {id:'don-pepin-garcia',brand:'Don Pepín García',vitola:'Robusto',size:'5x50',smokeTime:55,retailPrice:15.00,strength:'Full',flavors:['pepper','earth','leather'],pairings:['Rum','Whisky','Dark Ale'],country:'Nicaragua',rating:8.7},
-  {id:'perdomo-10th',brand:'Perdomo',vitola:'Robusto',size:'5x54',smokeTime:65,retailPrice:12.50,strength:'Medium',flavors:['cocoa','cedar','nutty'],pairings:['Coffee','Bourbon','Brandy'],country:'Nicaragua',rating:8.2},
-  {id:'crowned-heads-jericho',brand:'Crowned Heads',vitola:'Robusto',size:'5x50',smokeTime:55,retailPrice:16.50,strength:'Medium-Full',flavors:['spice','cedar','cocoa'],pairings:['Rye Whisky','Coffee','Port'],country:'Nicaragua',rating:8.6}
+  {id:'cohiba-robusto',brand:'Cohiba',name:'Línea Clásica',vitola:'Robusto',size:'5x50',smokeTime:50,retailPrice:24.00,strength:'Medium',flavors:['cedar','leather','spice'],pairings:['Rum','Cognac','Whisky'],country:'Cuba',rating:9.0},
+  {id:'davidoff-churchill',brand:'Davidoff',name:'Signature',vitola:'Churchill',size:'7x50',smokeTime:75,retailPrice:32.00,strength:'Medium-Light',flavors:['cedar','cream','vanilla'],pairings:['Coffee','Cognac','Port'],country:'Dominican Republic',rating:8.8},
+  {id:'partagas-churchill',brand:'Partagás',name:'Línea Clásica',vitola:'Churchill',size:'7x47',smokeTime:70,retailPrice:14.00,strength:'Medium',flavors:['earth','spice','leather'],pairings:['Rum','Whisky','Dark Ale'],country:'Cuba',rating:8.5},
+  {id:'mont-blanc-robusto',brand:'Montblanc',name:'Reserva',vitola:'Robusto',size:'5x50',smokeTime:55,retailPrice:16.00,strength:'Medium-Full',flavors:['cocoa','spice','cedar'],pairings:['Espresso','Bourbon','Cigar'],country:'Nicaragua',rating:8.2},
+  {id:'opus-x-fuente',brand:'Arturo Fuente',name:'Opus X',vitola:'Robusto',size:'5x50',smokeTime:60,retailPrice:38.00,strength:'Full',flavors:['spice','leather','cocoa'],pairings:['Scotch','Bourbon','Dark Chocolate'],country:'Dominican Republic',rating:9.2},
+  {id:'ashton-virgin-sun',brand:'Ashton',name:'Virgin Sun Grown',vitola:'Torpedo',size:'6.25x52',smokeTime:65,retailPrice:18.00,strength:'Medium',flavors:['cream','vanilla','cedar'],pairings:['Coffee','Bourbon','Brandy'],country:'Dominican Republic',rating:8.3},
+  {id:'bolivar-churchill',brand:'Bolívar',name:'Línea Clásica',vitola:'Churchill',size:'7x49',smokeTime:75,retailPrice:15.00,strength:'Full',flavors:['earth','leather','pepper'],pairings:['Rum','Whisky','Port'],country:'Cuba',rating:8.7},
+  {id:'padron-1964-robusto',brand:'Padron',name:'1964 Anniversary Series',vitola:'Robusto',size:'5x50',smokeTime:50,retailPrice:11.00,strength:'Medium-Full',flavors:['pepper','earth','cedar'],pairings:['Rum','Bourbon','Coffee'],country:'Nicaragua',rating:8.6},
+  {id:'arturo-fuente-shark',brand:'Arturo Fuente',name:'Curly Head Deluxe',vitola:'Shark',size:'8x52',smokeTime:90,retailPrice:22.00,strength:'Medium',flavors:['cedar','cream','spice'],pairings:['Cognac','Whisky','Coffee'],country:'Dominican Republic',rating:8.9},
+  {id:'avo-xo-robusto',brand:'AVO',name:'XO',vitola:'Robusto',size:'5x50',smokeTime:55,retailPrice:20.00,strength:'Medium-Light',flavors:['vanilla','cream','cedar'],pairings:['Coffee','Cognac','Champagne'],country:'Dominican Republic',rating:8.4},
+  {id:'romeo-julieta-churchill',brand:'Romeo y Julieta',name:'Línea Clásica',vitola:'Churchill',size:'7x47',smokeTime:70,retailPrice:15.50,strength:'Medium',flavors:['cedar','nutty','floral'],pairings:['Rum','Port','Tea'],country:'Cuba',rating:8.4},
+  {id:'my-father-le-bijou',brand:'My Father',name:'Le Bijou 1922',vitola:'Robusto',size:'5x52',smokeTime:55,retailPrice:18.00,strength:'Full',flavors:['pepper','cocoa','espresso'],pairings:['Bourbon','Espresso','Dark Rum'],country:'Nicaragua',rating:9.1},
+  {id:'oliva-serie-v',brand:'Oliva',name:'Serie V',vitola:'Torpedo',size:'6x52',smokeTime:70,retailPrice:15.00,strength:'Full',flavors:['pepper','cocoa','espresso'],pairings:['Whisky','Espresso','Port'],country:'Nicaragua',rating:8.8},
+  {id:'macanudo-hyde-park',brand:'Macanudo',name:'Café',vitola:'Hyde Park',size:'4.9x49',smokeTime:45,retailPrice:11.00,strength:'Light',flavors:['cream','cedar','nutty'],pairings:['Coffee','Port','Light Ale'],country:'Dominican Republic',rating:7.9},
+  {id:'liga-privada-no9',brand:'Liga Privada',name:'No. 9',vitola:'Robusto',size:'5x52',smokeTime:60,retailPrice:20.00,strength:'Full',flavors:['earth','cocoa','espresso'],pairings:['Bourbon','Scotch','Espresso'],country:'Nicaragua',rating:9.0},
+  {id:'hoyo-de-monterrey',brand:'Hoyo de Monterrey',name:'Línea Clásica',vitola:'Epicure No. 2',size:'4.9x50',smokeTime:50,retailPrice:13.50,strength:'Medium',flavors:['cedar','nutty','earth'],pairings:['Sherry','Rum','Coffee'],country:'Cuba',rating:8.3},
+  {id:'rocky-patel-decade',brand:'Rocky Patel',name:'Decade',vitola:'Robusto',size:'5.5x50',smokeTime:60,retailPrice:17.00,strength:'Medium-Full',flavors:['spice','cedar','cocoa'],pairings:['Bourbon','Whisky','Coffee'],country:'Honduras',rating:8.5},
+  {id:'don-pepin-garcia',brand:'Don Pepín García',name:'Blue Label',vitola:'Robusto',size:'5x50',smokeTime:55,retailPrice:15.00,strength:'Full',flavors:['pepper','earth','leather'],pairings:['Rum','Whisky','Dark Ale'],country:'Nicaragua',rating:8.7},
+  {id:'perdomo-10th',brand:'Perdomo',name:'10th Anniversary',vitola:'Robusto',size:'5x54',smokeTime:65,retailPrice:12.50,strength:'Medium',flavors:['cocoa','cedar','nutty'],pairings:['Coffee','Bourbon','Brandy'],country:'Nicaragua',rating:8.2},
+  {id:'crowned-heads-jericho',brand:'Crowned Heads',name:'Jericho Hill',vitola:'Robusto',size:'5x50',smokeTime:55,retailPrice:16.50,strength:'Medium-Full',flavors:['spice','cedar','cocoa'],pairings:['Rye Whisky','Coffee','Port'],country:'Nicaragua',rating:8.6}
 ];
 var STRENGTHS = ['Light','Medium-Light','Medium','Medium-Full','Full'];
+var VITOLA_SHAPES = ['Robusto','Toro','Churchill','Corona','Petit Corona','Torpedo','Belicoso','Pyramid','Perfecto','Lancero','Gordo','Double Corona','Panetela','Lonsdale','Presidente','Half Corona','Other/Proprietary'];
+var APP_VERSION = 'v8';
 var PALETTE = ['#b8874f','#35695c','#35597a','#a63a2e','#6a4a6e','#5b6672','#8a7a3a','#1c2530'];
 
 /* ---------------- STATE ---------------- */
@@ -184,7 +194,11 @@ var state = {
   activeTab: 'dashboard',
   searchBrand: '', filterStrength: 'All',
   rSearch: '', rCountry: 'All', rStrength: 'All', rMaxPrice: '', rSort: 'rating-desc',
-  compareList: []
+  compareList: [],
+  cardFields: { country:true, rating:true, specs:true, smoke:true, price:true, flavours:true, band:true, footer:true },
+  githubConfig: null,
+  showGithubPanel: false,
+  syncStatus: ''
 };
 
 function loadState(){
@@ -194,11 +208,15 @@ function loadState(){
     var c = localStorage.getItem('custom-library-uk');
     var w = localStorage.getItem('wishlist-uk');
     var hd = localStorage.getItem('hidden-seed-ids-uk');
+    var cf = localStorage.getItem('card-fields-uk');
+    var gc = localStorage.getItem('github-sync-config-uk');
     if(h) state.humidor = JSON.parse(h);
     if(s) state.smokeHistory = JSON.parse(s);
     if(c) state.customLibrary = JSON.parse(c);
     if(w) state.wishlist = JSON.parse(w);
     if(hd) state.hiddenSeedIds = JSON.parse(hd);
+    if(cf) state.cardFields = Object.assign({}, state.cardFields, JSON.parse(cf));
+    if(gc) state.githubConfig = JSON.parse(gc);
   }catch(e){ console.warn('Could not load saved data', e); }
 }
 function persist(){
@@ -207,6 +225,8 @@ function persist(){
   localStorage.setItem('custom-library-uk', JSON.stringify(state.customLibrary));
   localStorage.setItem('wishlist-uk', JSON.stringify(state.wishlist));
   localStorage.setItem('hidden-seed-ids-uk', JSON.stringify(state.hiddenSeedIds));
+  localStorage.setItem('card-fields-uk', JSON.stringify(state.cardFields));
+  scheduleAutoSync();
 }
 function library(){
   return SEED_CIGARS.filter(function(c){ return state.hiddenSeedIds.indexOf(c.id)===-1; }).concat(state.customLibrary);
@@ -311,14 +331,18 @@ function toggleCompare(id){
   else if(state.compareList.length<4){ state.compareList.push(id); }
   render();
 }
+function toggleCardField(field){
+  state.cardFields[field] = !state.cardFields[field];
+  persist(); render();
+}
 function clearCompare(){ state.compareList=[]; render(); }
 function addCustomCigar(form){
-  if(!form.brand || !form.vitola){ alert('Brand and Vitola are required'); return; }
+  if(!form.brand || !form.vitola){ alert('Brand and Vitola/Shape are required'); return; }
   var flavors = form.flavors.split(',').map(function(s){return s.trim();}).filter(Boolean);
   var pairings = form.pairings.split(',').map(function(s){return s.trim();}).filter(Boolean);
   var cigar = {
     id: 'bespoke-'+genId(),
-    brand: form.brand, vitola: form.vitola, size: form.size||'—',
+    brand: form.brand, name: form.name||'', vitola: form.vitola, size: form.size||'—',
     smokeTime: parseInt(form.smokeTime,10)||60,
     retailPrice: parseFloat(form.retailPrice)||10,
     strength: form.strength||'Medium',
@@ -377,6 +401,75 @@ function exportData(){
   document.body.appendChild(a); a.click(); document.body.removeChild(a);
   URL.revokeObjectURL(url);
 }
+/* ---------------- GITHUB SYNC ---------------- */
+function b64EncodeUnicode(str){
+  return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, function(match, p1){
+    return String.fromCharCode('0x'+p1);
+  }));
+}
+function saveGithubConfig(){
+  var cfg = {
+    token: document.getElementById('gh-token').value.trim(),
+    owner: document.getElementById('gh-owner').value.trim(),
+    repo: document.getElementById('gh-repo').value.trim(),
+    path: document.getElementById('gh-path').value.trim() || 'humidor-data.json',
+    branch: document.getElementById('gh-branch').value.trim() || 'main',
+    autoSync: document.getElementById('gh-autosync').checked
+  };
+  if(!cfg.token || !cfg.owner || !cfg.repo){ alert('Token, Owner, and Repo are required.'); return; }
+  state.githubConfig = cfg;
+  localStorage.setItem('github-sync-config-uk', JSON.stringify(cfg));
+  state.syncStatus = 'Settings saved.';
+  render();
+}
+var syncDebounceTimer = null;
+function scheduleAutoSync(){
+  if(!state.githubConfig || !state.githubConfig.autoSync) return;
+  if(syncDebounceTimer) clearTimeout(syncDebounceTimer);
+  syncDebounceTimer = setTimeout(function(){ githubSync(false); }, 4000);
+}
+function githubSync(manual){
+  var cfg = state.githubConfig;
+  if(!cfg || !cfg.token || !cfg.owner || !cfg.repo || !cfg.path){
+    if(manual) alert('Please fill in Token, Owner, Repo, and Path, then Save Settings first.');
+    return;
+  }
+  state.syncStatus = 'Syncing…'; render();
+  var base = 'https://api.github.com/repos/'+encodeURIComponent(cfg.owner)+'/'+encodeURIComponent(cfg.repo)+'/contents/'+cfg.path.split('/').map(encodeURIComponent).join('/');
+  var payload = {
+    humidor: state.humidor, smokeHistory: state.smokeHistory, customLibrary: state.customLibrary,
+    wishlist: state.wishlist, hiddenSeedIds: state.hiddenSeedIds, syncedAt: new Date().toISOString()
+  };
+  var contentB64;
+  try{ contentB64 = b64EncodeUnicode(JSON.stringify(payload, null, 2)); }
+  catch(e){ state.syncStatus = 'Sync failed: could not encode data.'; render(); return; }
+
+  fetch(base+'?ref='+encodeURIComponent(cfg.branch||'main'), {
+    headers: { 'Authorization':'token '+cfg.token, 'Accept':'application/vnd.github+json' }
+  }).then(function(getResp){
+    if(getResp.status===200) return getResp.json().then(function(d){ return d.sha; });
+    if(getResp.status===404) return null;
+    throw new Error('GET failed ('+getResp.status+')');
+  }).then(function(sha){
+    var body = { message:'Update humidor data — '+new Date().toISOString(), content: contentB64, branch: cfg.branch||'main' };
+    if(sha) body.sha = sha;
+    return fetch(base, {
+      method:'PUT',
+      headers: { 'Authorization':'token '+cfg.token, 'Accept':'application/vnd.github+json', 'Content-Type':'application/json' },
+      body: JSON.stringify(body)
+    });
+  }).then(function(putResp){
+    if(!putResp.ok){
+      return putResp.text().then(function(t){ throw new Error('PUT failed ('+putResp.status+') '+t.slice(0,140)); });
+    }
+    state.syncStatus = 'Synced '+new Date().toLocaleTimeString('en-GB');
+    render();
+  }).catch(function(err){
+    state.syncStatus = 'Sync failed: '+err.message;
+    render();
+  });
+}
+
 function importDataFromFile(file){
   var reader = new FileReader();
   reader.onload = function(evt){
@@ -402,6 +495,7 @@ function normaliseCigarRecord(raw){
   return {
     id: raw.id || ('checkout-'+genId()),
     brand: raw.brand || 'Unknown',
+    name: raw.name || '',
     vitola: raw.vitola || 'Unknown',
     size: raw.size || '—',
     smokeTime: parseInt(raw.smokeTime,10) || 60,
@@ -426,7 +520,9 @@ function importCigarsFromFile(file){
       list.forEach(function(raw){
         var cigar = normaliseCigarRecord(raw);
         var dupe = lib.concat(state.customLibrary).some(function(c){
-          return c.brand.toLowerCase()===cigar.brand.toLowerCase() && c.vitola.toLowerCase()===cigar.vitola.toLowerCase();
+          return c.brand.toLowerCase()===cigar.brand.toLowerCase() &&
+            (c.name||'').toLowerCase()===(cigar.name||'').toLowerCase() &&
+            c.vitola.toLowerCase()===cigar.vitola.toLowerCase();
         });
         if(dupe){ skipped++; return; }
         state.customLibrary.push(cigar);
@@ -644,8 +740,8 @@ function renderHumidor(){
     '</tr></thead><tbody>';
   filtered.forEach(function(c){
     html += '<tr>'+
-      '<td><p style="margin:0;font-weight:600;">'+esc(c.brand)+' '+esc(c.vitola)+'</p>'+
-      '<p class="muted mono" style="margin:2px 0 0;">'+esc(c.size)+' · '+esc(c.country)+'</p>'+
+      '<td><p style="margin:0;font-weight:600;">'+esc(c.brand)+(c.name? ' '+esc(c.name):'')+'</p>'+
+      '<p class="muted mono" style="margin:2px 0 0;">'+esc(c.vitola)+' · '+esc(c.size)+' · '+esc(c.country)+'</p>'+
       '<div>'+c.flavors.map(function(f){return '<span class="tag">'+esc(f)+'</span>';}).join('')+'</div></td>'+
       '<td class="center" style="font-weight:600;">'+c.quantity+'</td>'+
       '<td class="center muted mono" style="font-size:11px;">'+esc(c.strength)+'</td>'+
@@ -663,24 +759,28 @@ function renderHumidor(){
 }
 
 function passCardHTML(c, comparing, compareDisabled, showDelete){
+  var f = state.cardFields;
   return '<div class="pass'+(comparing?' comparing':'')+'">'+
     '<div class="pass-top">'+
-      '<div class="pass-eyebrow"><span class="eyebrow-country">'+flagSVG(c.country)+esc(c.country)+'</span>'+
-        '<span class="status-chip" style="color:var(--brass);">★ '+c.rating+'</span></div>'+
+      '<div class="pass-eyebrow">'+
+        (f.country? '<span class="eyebrow-country">'+flagSVG(c.country)+esc(c.country)+'</span>' : '<span></span>')+
+        (f.rating? '<span class="status-chip" style="color:var(--brass);">★ '+c.rating+'</span>' : '')+
+      '</div>'+
       '<div class="pass-name">'+esc(c.brand)+'</div>'+
-      '<div class="pass-specs">'+
+      (c.name? '<div class="pass-line-name">'+esc(c.name)+'</div>' : '')+
+      (f.specs? '<div class="pass-specs">'+
         '<div><span class="spec-label">Vitola</span><span class="spec-value">'+esc(c.vitola)+'</span></div>'+
         '<div><span class="spec-label">Size</span><span class="spec-value">'+esc(c.size)+'</span></div>'+
-      '</div>'+
-      smokeBlockHTML(c.smokeTime)+
-      '<div class="price-row"><span class="spec-label">Retail Price</span><span class="price-value">'+money(c.retailPrice)+'</span></div>'+
-      '<div class="pass-flavours">'+c.flavors.join(' · ')+'</div>'+
+      '</div>' : '')+
+      (f.smoke? smokeBlockHTML(c.smokeTime) : '')+
+      (f.price? '<div class="price-row"><span class="spec-label">Retail Price</span><span class="price-value">'+money(c.retailPrice)+'</span></div>' : '')+
+      (f.flavours? '<div class="pass-flavours">'+c.flavors.join(' · ')+'</div>' : '')+
     '</div>'+
     '<div class="perforation"></div>'+
-    '<div class="cigar-band" style="background:'+bandColour(c.strength)+';"><span class="band-text">'+esc(c.strength)+'</span></div>'+
-    '<div class="pass-footer"><span class="mono" style="font-size:11px;color:var(--ink-soft);">£'+(c.retailPrice/c.smokeTime).toFixed(2)+'/min</span>'+
+    (f.band? '<div class="cigar-band" style="background:'+bandColour(c.strength)+';"><span class="band-text">'+esc(c.strength)+'</span></div>' : '')+
+    (f.footer? '<div class="pass-footer"><span class="mono" style="font-size:11px;color:var(--ink-soft);">£'+(c.retailPrice/c.smokeTime).toFixed(2)+'/min</span>'+
       (c.website? '<a class="source-link" href="'+esc(c.website)+'" target="_blank" rel="noopener">Source</a>' : '<span></span>')+
-    '</div>'+
+    '</div>' : '')+
     '<div class="pass-actions">'+
       '<button class="btn-primary btn-sm" data-action="add-humidor" data-id="'+esc(c.id)+'">+ Humidor</button>'+
       '<button class="btn-ghost btn-sm" data-action="add-wishlist" data-id="'+esc(c.id)+'">+ Wishlist</button>'+
@@ -694,6 +794,7 @@ function renderResearch(){
   var results = lib.filter(function(c){
     var q = state.rSearch.toLowerCase();
     var matchSearch = q==='' || c.brand.toLowerCase().indexOf(q)>=0 || c.vitola.toLowerCase().indexOf(q)>=0 ||
+      (c.name||'').toLowerCase().indexOf(q)>=0 ||
       c.flavors.some(function(f){return f.toLowerCase().indexOf(q)>=0;});
     var matchCountry = state.rCountry==='All' || c.country===state.rCountry;
     var matchStrength = state.rStrength==='All' || c.strength===state.rStrength;
@@ -726,7 +827,8 @@ function renderResearch(){
     '<form id="custom-cigar-form">'+
       '<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">'+
         '<input type="text" name="brand" placeholder="Brand*" required>'+
-        '<input type="text" name="vitola" placeholder="Vitola (e.g., Robusto)*" required>'+
+        '<input type="text" name="name" placeholder="Cigar Name / Line (e.g., 1964 Anniversary Series)">'+
+        '<select name="vitola" required><option value="">Vitola / Shape*</option>'+VITOLA_SHAPES.map(function(v){return '<option value="'+v+'">'+v+'</option>';}).join('')+'</select>'+
         '<input type="text" name="size" placeholder="Size (e.g., 5x50)">'+
         '<input type="text" name="country" placeholder="Country">'+
         '<input type="number" name="smokeTime" placeholder="Smoke Time (minutes)">'+
@@ -761,11 +863,20 @@ function renderResearch(){
       (state.compareList.length>0 ? '<span class="mono" style="font-size:11px;color:var(--brass);font-weight:700;">'+state.compareList.length+'/4 SELECTED</span>' : '')+
     '</div>'+
     '<p class="hint">Add to Wishlist, or Remove to hide a cigar from this library — your Humidor stock is never affected.</p>'+
+    '<div class="field-toggles">'+
+      ['country','Country','rating','Rating','specs','Vitola &amp; Size','smoke','Smoke Time','price','Price','flavours','Flavours','band','Strength Band','footer','Cost/Min &amp; Source']
+        .reduce(function(pairs,item,i,arr){ if(i%2===0) pairs.push([arr[i],arr[i+1]]); return pairs; }, [])
+        .map(function(pair){
+          var key=pair[0], label=pair[1], on=!!state.cardFields[key];
+          return '<label class="field-toggle'+(on?'':' off')+'"><input type="checkbox" data-field="'+key+'" '+(on?'checked':'')+'> '+label+'</label>';
+        }).join('')+
+    '</div>'+
     '</div>';
 
   if(state.compareList.length>0){
     var compareCigars = state.compareList.map(function(id){return findCigar(id);}).filter(Boolean);
     var rows = [
+      ['Name', function(c){return c.name||'—';}],
       ['Vitola', function(c){return c.vitola;}], ['Size', function(c){return c.size;}],
       ['Country', function(c){return c.country;}], ['Strength', function(c){return c.strength;}],
       ['Rating', function(c){return '★ '+c.rating;}], ['Smoke Time', function(c){return c.smokeTime+'m';}],
@@ -802,26 +913,30 @@ function renderWishlist(){
   if(state.wishlist.length===0){
     return '<div class="card empty">YOUR WISHLIST IS EMPTY — BROWSE RESEARCH AND ADD ANYTHING THAT CATCHES YOUR EYE</div>';
   }
+  var f = state.cardFields;
   var html = '<div class="passes-grid">';
   state.wishlist.forEach(function(w){
     html += '<div class="pass">'+
       '<div class="pass-top">'+
-        '<div class="pass-eyebrow"><span class="eyebrow-country">'+flagSVG(w.country)+esc(w.country)+'</span>'+
-          '<span class="status-chip" style="color:var(--brass);">★ '+w.rating+'</span></div>'+
+        '<div class="pass-eyebrow">'+
+          (f.country? '<span class="eyebrow-country">'+flagSVG(w.country)+esc(w.country)+'</span>' : '<span></span>')+
+          (f.rating? '<span class="status-chip" style="color:var(--brass);">★ '+w.rating+'</span>' : '')+
+        '</div>'+
         '<div class="pass-name">'+esc(w.brand)+'</div>'+
-        '<div class="pass-specs">'+
+        (w.name? '<div class="pass-line-name">'+esc(w.name)+'</div>' : '')+
+        (f.specs? '<div class="pass-specs">'+
           '<div><span class="spec-label">Vitola</span><span class="spec-value">'+esc(w.vitola)+'</span></div>'+
           '<div><span class="spec-label">Size</span><span class="spec-value">'+esc(w.size)+'</span></div>'+
-        '</div>'+
-        smokeBlockHTML(w.smokeTime)+
-        '<div class="price-row"><span class="spec-label">Retail Price</span><span class="price-value">'+money(w.retailPrice)+'</span></div>'+
-        '<div class="pass-flavours">'+w.flavors.join(' · ')+'</div>'+
+        '</div>' : '')+
+        (f.smoke? smokeBlockHTML(w.smokeTime) : '')+
+        (f.price? '<div class="price-row"><span class="spec-label">Retail Price</span><span class="price-value">'+money(w.retailPrice)+'</span></div>' : '')+
+        (f.flavours? '<div class="pass-flavours">'+w.flavors.join(' · ')+'</div>' : '')+
       '</div>'+
       '<div class="perforation"></div>'+
-      '<div class="cigar-band" style="background:'+bandColour(w.strength)+';"><span class="band-text">'+esc(w.strength)+'</span></div>'+
-      '<div class="pass-footer"><span class="mono" style="font-size:11px;color:var(--ink-soft);">Added '+esc(w.dateAdded)+'</span>'+
+      (f.band? '<div class="cigar-band" style="background:'+bandColour(w.strength)+';"><span class="band-text">'+esc(w.strength)+'</span></div>' : '')+
+      (f.footer? '<div class="pass-footer"><span class="mono" style="font-size:11px;color:var(--ink-soft);">Added '+esc(w.dateAdded)+'</span>'+
         (w.website? '<a class="source-link" href="'+esc(w.website)+'" target="_blank" rel="noopener">Source</a>' : '<span></span>')+
-      '</div>'+
+      '</div>' : '')+
       '<div class="pass-actions">'+
         '<button class="btn-primary btn-sm" data-action="wishlist-to-humidor" data-id="'+esc(w.wishlistId)+'">Move to Humidor</button>'+
         '<button class="btn-danger btn-sm" data-action="remove-wishlist" data-id="'+esc(w.wishlistId)+'">Remove</button>'+
@@ -840,8 +955,8 @@ function renderHistory(){
     '<th>Cigar</th><th class="center">Date</th><th class="num">Duration</th><th class="num">Cost</th><th class="num">£/min</th><th>Notes</th>'+
     '</tr></thead><tbody>';
   rows.forEach(function(e){
-    html += '<tr><td><p style="margin:0;font-weight:600;">'+esc(e.brand)+' '+esc(e.vitola)+'</p>'+
-      '<p class="muted mono" style="margin:2px 0 0;">'+esc(e.size)+'</p></td>'+
+    html += '<tr><td><p style="margin:0;font-weight:600;">'+esc(e.brand)+(e.name? ' '+esc(e.name):'')+'</p>'+
+      '<p class="muted mono" style="margin:2px 0 0;">'+esc(e.vitola)+' · '+esc(e.size)+'</p></td>'+
       '<td class="center mono">'+esc(e.dateSmoked)+'</td>'+
       '<td class="num">'+e.smokeTime+'m</td>'+
       '<td class="num">'+money(e.actualCost)+'</td>'+
@@ -878,14 +993,40 @@ function renderApp(){
   return '<div class="masthead">'+
       '<div class="wordmark">The Humidor<small>Cigar &amp; Tasting Ledger</small></div>'+
       '<div class="data-actions">'+
+        '<span class="version-badge">'+APP_VERSION+'</span>'+
+        '<button class="btn-ghost btn-sm" data-action="toggle-github-panel">GitHub Sync</button>'+
         '<button class="btn-ghost btn-sm" data-action="export-data">Export Backup</button>'+
-        '<label class="btn-ghost btn-sm" style="display:inline-flex;align-items:center;" data-action="trigger-restore">Import Backup'+
-          '<input type="file" id="restore-file-input" accept=".json" style="display:none">'+
-        '</label>'+
+        '<button class="btn-ghost btn-sm" data-action="trigger-restore">Import Backup</button>'+
+        '<input type="file" id="restore-file-input" accept=".json" style="display:none">'+
       '</div>'+
     '</div>'+
     '<div class="tab-bar">'+tabsHtml+'</div>'+
+    (state.showGithubPanel ? renderGithubPanel() : '')+
     '<div>'+content+'</div>';
+}
+
+function renderGithubPanel(){
+  var cfg = state.githubConfig || {};
+  return '<div class="card" style="margin-bottom:20px;">'+
+    '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">'+
+      '<h3 class="section-title" style="margin:0;">GitHub Sync</h3>'+
+      '<button class="btn-ghost btn-sm" data-action="gh-close">Close</button>'+
+    '</div>'+
+    '<p class="hint" style="margin:0 0 14px;">Your token is stored only in this browser and sent directly to GitHub\'s API. Use a fine-grained PAT scoped to Contents (read/write) on one repository only.</p>'+
+    '<div class="gh-grid">'+
+      '<input type="password" id="gh-token" placeholder="Personal Access Token" value="'+esc(cfg.token||'')+'">'+
+      '<input type="text" id="gh-owner" placeholder="Repo owner (e.g. Ello2003)" value="'+esc(cfg.owner||'')+'">'+
+      '<input type="text" id="gh-repo" placeholder="Repo name" value="'+esc(cfg.repo||'')+'">'+
+      '<input type="text" id="gh-path" placeholder="File path (e.g. humidor-data.json)" value="'+esc(cfg.path||'humidor-data.json')+'">'+
+      '<input type="text" id="gh-branch" placeholder="Branch" value="'+esc(cfg.branch||'main')+'">'+
+      '<label class="field-toggle" style="align-self:center;"><input type="checkbox" id="gh-autosync" '+(cfg.autoSync?'checked':'')+'> Auto-sync on change</label>'+
+    '</div>'+
+    '<div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">'+
+      '<button class="btn-primary btn-sm" data-action="gh-save">Save Settings</button>'+
+      '<button class="btn-ghost btn-sm" data-action="gh-sync-now">Sync Now</button>'+
+      (state.syncStatus? '<span class="mono" style="font-size:11px;color:var(--ink-soft);">'+esc(state.syncStatus)+'</span>' : '')+
+    '</div>'+
+  '</div>';
 }
 
 /* ---------------- RENDER + FOCUS PRESERVATION ---------------- */
@@ -928,10 +1069,11 @@ function init(){
     else if(action==='wishlist-to-humidor'){ moveWishlistToHumidor(id); }
     else if(action==='remove-wishlist'){ removeFromWishlist(id); }
     else if(action==='export-data'){ exportData(); }
-    else if(action==='trigger-restore'){
-      var input = document.getElementById('restore-file-input');
-      if(input && e.target!==input) input.click();
-    }
+    else if(action==='trigger-restore'){ document.getElementById('restore-file-input').click(); }
+    else if(action==='toggle-github-panel'){ state.showGithubPanel = !state.showGithubPanel; render(); }
+    else if(action==='gh-close'){ state.showGithubPanel = false; render(); }
+    else if(action==='gh-save'){ saveGithubConfig(); }
+    else if(action==='gh-sync-now'){ githubSync(true); }
   });
 
   root.addEventListener('input', function(e){
@@ -954,6 +1096,9 @@ function init(){
     else if(id==='import-cigars-input'){
       var cfile = e.target.files[0];
       if(cfile) importCigarsFromFile(cfile);
+    }
+    else if(e.target.matches('[data-field]')){
+      toggleCardField(e.target.getAttribute('data-field'));
     }
   });
 
