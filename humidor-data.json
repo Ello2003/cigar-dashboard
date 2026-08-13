@@ -1,190 +1,29 @@
 {
-  "humidor": [
-    {
-      "id": "checkout-msnqk57k9z7uv7",
-      "brand": "Davidoff",
-      "vitola": "Grand Cru No. 2",
-      "size": "5.625x43",
-      "smokeTime": 30,
-      "retailPrice": 41,
-      "strength": "Light",
-      "flavors": [
-        "nut",
-        "cedar",
-        "honey",
-        "almond",
-        "pepper"
-      ],
-      "pairings": [
-        "Coffee",
-        "Scotch",
-        "Bourbon"
-      ],
-      "country": "Dominican Republic",
-      "rating": 8.7,
-      "quantity": 1,
-      "actualCost": 41,
-      "dateAdded": "10/08/2026",
-      "dateAddedISO": "2026-08-10T21:21:29.262Z",
-      "humidorId": "checkout-msnqk57k9z7uv7-msnql1gyalivdi"
-    },
-    {
-      "id": "checkout-msnqk57ksvuk5n",
-      "brand": "Davidoff",
-      "vitola": "Grand Cru Toro",
-      "size": "6x54",
-      "smokeTime": 60,
-      "retailPrice": 52,
-      "strength": "Light",
-      "flavors": [
-        "cream",
-        "cedar",
-        "almond",
-        "coffee",
-        "vanilla"
-      ],
-      "pairings": [
-        "Scotch",
-        "Bourbon",
-        "Coffee"
-      ],
-      "country": "Dominican Republic",
-      "rating": 8.6,
-      "quantity": 1,
-      "actualCost": 52,
-      "dateAdded": "10/08/2026",
-      "dateAddedISO": "2026-08-10T21:21:30.837Z",
-      "humidorId": "checkout-msnqk57ksvuk5n-msnql2omwxlqro"
-    }
-  ],
-  "smokeHistory": [
-    {
-      "id": "checkout-msnqk57kzlfl5p",
-      "brand": "Davidoff",
-      "vitola": "Winston Churchill Belicoso - Traveller",
-      "size": "4.5x46",
-      "smokeTime": 20,
-      "retailPrice": 18,
-      "strength": "Medium",
-      "flavors": [
-        "spice",
-        "sweetness",
-        "cedar",
-        "floral",
-        "pepper"
-      ],
-      "pairings": [
-        "Scotch",
-        "Coffee",
-        "Bourbon"
-      ],
-      "country": "Dominican Republic",
-      "rating": 8.7,
-      "quantity": 1,
-      "actualCost": 18,
-      "dateAdded": "10/08/2026",
-      "dateAddedISO": "2026-08-10T21:21:20.992Z",
-      "humidorId": "checkout-msnqk57kzlfl5p-msnqkv3jip89qr",
-      "dateSmoked": "10/08/2026",
-      "dateSmokedISO": "2026-08-10T21:21:59.615Z",
-      "timeSmoked": "22:21:59",
-      "notes": "",
-      "costPerMinute": "0.90"
-    }
-  ],
-  "customLibrary": [
-    {
-      "id": "checkout-msnqk57ksvuk5n",
-      "brand": "Davidoff",
-      "vitola": "Grand Cru Toro",
-      "size": "6x54",
-      "smokeTime": 60,
-      "retailPrice": 52,
-      "strength": "Light",
-      "flavors": [
-        "cream",
-        "cedar",
-        "almond",
-        "coffee",
-        "vanilla"
-      ],
-      "pairings": [
-        "Scotch",
-        "Bourbon",
-        "Coffee"
-      ],
-      "country": "Dominican Republic",
-      "rating": 8.6
-    },
-    {
-      "id": "checkout-msnqk57kzlfl5p",
-      "brand": "Davidoff",
-      "vitola": "Winston Churchill Belicoso - Traveller",
-      "size": "4.5x46",
-      "smokeTime": 20,
-      "retailPrice": 18,
-      "strength": "Medium",
-      "flavors": [
-        "spice",
-        "sweetness",
-        "cedar",
-        "floral",
-        "pepper"
-      ],
-      "pairings": [
-        "Scotch",
-        "Coffee",
-        "Bourbon"
-      ],
-      "country": "Dominican Republic",
-      "rating": 8.7
-    },
-    {
-      "id": "checkout-msnqk57k9z7uv7",
-      "brand": "Davidoff",
-      "vitola": "Grand Cru No. 2",
-      "size": "5.625x43",
-      "smokeTime": 30,
-      "retailPrice": 41,
-      "strength": "Light",
-      "flavors": [
-        "nut",
-        "cedar",
-        "honey",
-        "almond",
-        "pepper"
-      ],
-      "pairings": [
-        "Coffee",
-        "Scotch",
-        "Bourbon"
-      ],
-      "country": "Dominican Republic",
-      "rating": 8.7
-    }
-  ],
+  "humidor": [],
+  "smokeHistory": [],
+  "customLibrary": [],
   "wishlist": [],
   "hiddenSeedIds": [
-    "my-father-le-bijou",
     "opus-x-fuente",
     "cohiba-robusto",
-    "liga-privada-no9",
     "arturo-fuente-shark",
+    "liga-privada-no9",
+    "my-father-le-bijou",
+    "davidoff-churchill",
+    "bolivar-churchill",
     "don-pepin-garcia",
-    "macanudo-hyde-park",
-    "perdomo-10th",
+    "oliva-serie-v",
+    "crowned-heads-jericho",
+    "padron-1964-robusto",
+    "rocky-patel-decade",
+    "partagas-churchill",
+    "avo-xo-robusto",
+    "romeo-julieta-churchill",
     "ashton-virgin-sun",
     "hoyo-de-monterrey",
     "mont-blanc-robusto",
-    "rocky-patel-decade",
-    "avo-xo-robusto",
-    "crowned-heads-jericho",
-    "padron-1964-robusto",
-    "romeo-julieta-churchill",
-    "partagas-churchill",
-    "davidoff-churchill",
-    "oliva-serie-v",
-    "bolivar-churchill"
+    "perdomo-10th",
+    "macanudo-hyde-park"
   ],
-  "syncedAt": "2026-08-13T21:33:55.345Z"
+  "syncedAt": "2026-08-13T21:39:13.257Z"
 }
