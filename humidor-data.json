@@ -55,6 +55,35 @@
       "dateAdded": "10/08/2026",
       "dateAddedISO": "2026-08-10T21:21:30.837Z",
       "humidorId": "checkout-msnqk57ksvuk5n-msnql2omwxlqro"
+    },
+    {
+      "id": "checkout-mss8decx65ixdt",
+      "brand": "E.P. Carrillo",
+      "name": "Encore",
+      "vitola": "Majestic (Robusto)",
+      "size": "5x50",
+      "smokeTime": 55,
+      "retailPrice": 19.27,
+      "strength": "Medium",
+      "flavors": [
+        "cedar",
+        "cream",
+        "spice",
+        "pepper",
+        "earth"
+      ],
+      "pairings": [
+        "Coffee",
+        "Lager"
+      ],
+      "country": "Nicaragua",
+      "rating": 9.3,
+      "website": "https://cubancigarclub.co.uk",
+      "quantity": 1,
+      "actualCost": 19.27,
+      "dateAdded": "14/08/2026",
+      "dateAddedISO": "2026-08-14T00:52:53.915Z",
+      "humidorId": "checkout-mss8decx65ixdt-mss8gh0bjidoy5"
     }
   ],
   "smokeHistory": [
@@ -1267,5 +1296,5 @@
     "oliva-serie-v",
     "bolivar-churchill"
   ],
-  "syncedAt": "2026-08-14T00:50:36.355Z"
+  "syncedAt": "2026-08-14T00:52:57.917Z"
 }
