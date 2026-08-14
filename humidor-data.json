@@ -92,7 +92,27 @@
       "costPerMinute": "0.90"
     }
   ],
-  "customLibrary": [],
+  "customLibrary": [
+    {
+      "id": "checkout-mss8ly9wtjzy33",
+      "brand": "Unknown",
+      "name": "",
+      "vitola": "Unknown",
+      "size": "—",
+      "smokeTime": 60,
+      "retailPrice": 0,
+      "strength": "Medium",
+      "flavors": [
+        "—"
+      ],
+      "pairings": [
+        "—"
+      ],
+      "country": "Unknown",
+      "rating": 8,
+      "website": ""
+    }
+  ],
   "wishlist": [],
   "hiddenSeedIds": [
     "cohiba-robusto",
@@ -116,5 +136,5 @@
     "perdomo-10th",
     "crowned-heads-jericho"
   ],
-  "syncedAt": "2026-08-14T00:56:51.649Z"
+  "syncedAt": "2026-08-14T00:57:15.686Z"
 }
