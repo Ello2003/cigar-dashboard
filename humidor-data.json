@@ -92,7 +92,920 @@
       "costPerMinute": "0.90"
     }
   ],
-  "customLibrary": [],
+  "customLibrary": [
+    {
+      "id": "checkout-mss8muy5lbn46c",
+      "brand": "Davidoff",
+      "name": "Grand Cru",
+      "vitola": "Toro",
+      "size": "6x50",
+      "smokeTime": 70,
+      "retailPrice": 52,
+      "strength": "Medium-Light",
+      "flavors": [
+        "cedar",
+        "cream",
+        "vanilla",
+        "coffee"
+      ],
+      "pairings": [
+        "Coffee",
+        "Cognac"
+      ],
+      "country": "Dominican Republic",
+      "rating": 8.7,
+      "website": "https://www.davidofflondon.com"
+    },
+    {
+      "id": "checkout-mss8muy55m7b4v",
+      "brand": "Davidoff",
+      "name": "Winston Churchill — The Traveller",
+      "vitola": "Belicoso",
+      "size": "5.5x52",
+      "smokeTime": 60,
+      "retailPrice": 18,
+      "strength": "Medium",
+      "flavors": [
+        "cedar",
+        "spice",
+        "leather",
+        "cream"
+      ],
+      "pairings": [
+        "Whisky",
+        "Port"
+      ],
+      "country": "Dominican Republic",
+      "rating": 8.6,
+      "website": "https://www.davidofflondon.com"
+    },
+    {
+      "id": "checkout-mss8muy51hml6c",
+      "brand": "Davidoff",
+      "name": "Grand Cru",
+      "vitola": "Corona",
+      "size": "5.6x42",
+      "smokeTime": 50,
+      "retailPrice": 41,
+      "strength": "Medium-Light",
+      "flavors": [
+        "cedar",
+        "cream",
+        "coffee"
+      ],
+      "pairings": [
+        "Coffee",
+        "Cognac"
+      ],
+      "country": "Dominican Republic",
+      "rating": 8.6,
+      "website": "https://www.davidofflondon.com"
+    },
+    {
+      "id": "checkout-mss8muy5q14vww",
+      "brand": "Davidoff",
+      "name": "Aniversario No. 1 (Limited Edition, Discontinued)",
+      "vitola": "Lonsdale",
+      "size": "7.4x38",
+      "smokeTime": 75,
+      "retailPrice": 65,
+      "strength": "Medium",
+      "flavors": [
+        "cedar",
+        "cream",
+        "coffee",
+        "floral"
+      ],
+      "pairings": [
+        "Champagne",
+        "Cognac"
+      ],
+      "country": "Dominican Republic",
+      "rating": 9,
+      "website": "https://www.cgarsltd.co.uk"
+    },
+    {
+      "id": "checkout-mss8muy5rmwr1z",
+      "brand": "Davidoff",
+      "name": "Master Edition Clubhouse (Discontinued)",
+      "vitola": "Robusto",
+      "size": "5.5x50",
+      "smokeTime": 55,
+      "retailPrice": 45,
+      "strength": "Medium",
+      "flavors": [
+        "cedar",
+        "cream",
+        "spice"
+      ],
+      "pairings": [
+        "Coffee",
+        "Brandy"
+      ],
+      "country": "Dominican Republic",
+      "rating": 8.7,
+      "website": "https://www.cgarsltd.co.uk"
+    },
+    {
+      "id": "checkout-mss8muy5nzkduq",
+      "brand": "Oliva",
+      "name": "Serie V",
+      "vitola": "Double Robusto",
+      "size": "5x54",
+      "smokeTime": 65,
+      "retailPrice": 19.47,
+      "strength": "Full",
+      "flavors": [
+        "pepper",
+        "cocoa",
+        "espresso"
+      ],
+      "pairings": [
+        "Whisky",
+        "Espresso"
+      ],
+      "country": "Nicaragua",
+      "rating": 8.8,
+      "website": "https://cubancigarclub.co.uk"
+    },
+    {
+      "id": "checkout-mss8muy5r1ts24",
+      "brand": "Oliva",
+      "name": "Serie V",
+      "vitola": "Belicoso",
+      "size": "5.5x52",
+      "smokeTime": 60,
+      "retailPrice": 18.37,
+      "strength": "Full",
+      "flavors": [
+        "pepper",
+        "cocoa",
+        "espresso"
+      ],
+      "pairings": [
+        "Whisky",
+        "Espresso"
+      ],
+      "country": "Nicaragua",
+      "rating": 8.8,
+      "website": "https://cubancigarclub.co.uk"
+    },
+    {
+      "id": "checkout-mss8muy5t7hipa",
+      "brand": "E.P. Carrillo",
+      "name": "Encore",
+      "vitola": "Majestic (Robusto)",
+      "size": "5x50",
+      "smokeTime": 55,
+      "retailPrice": 19.27,
+      "strength": "Medium",
+      "flavors": [
+        "cedar",
+        "cream",
+        "spice",
+        "pepper",
+        "earth"
+      ],
+      "pairings": [
+        "Coffee",
+        "Lager"
+      ],
+      "country": "Nicaragua",
+      "rating": 9.3,
+      "website": "https://cubancigarclub.co.uk"
+    },
+    {
+      "id": "checkout-mss8muy5hjbtxp",
+      "brand": "Flor de Oliva",
+      "name": "",
+      "vitola": "Churchill",
+      "size": "7x50",
+      "smokeTime": 75,
+      "retailPrice": 17.42,
+      "strength": "Medium",
+      "flavors": [
+        "cedar",
+        "earth",
+        "spice"
+      ],
+      "pairings": [
+        "Rum",
+        "Coffee"
+      ],
+      "country": "Nicaragua",
+      "rating": 7.8,
+      "website": "https://cubancigarclub.co.uk"
+    },
+    {
+      "id": "checkout-mss8muy54grsr7",
+      "brand": "Charatan",
+      "name": "",
+      "vitola": "Churchill",
+      "size": "7x48",
+      "smokeTime": 70,
+      "retailPrice": 15.2,
+      "strength": "Medium",
+      "flavors": [
+        "cedar",
+        "nutty",
+        "mild spice"
+      ],
+      "pairings": [
+        "Tea",
+        "Light Ale"
+      ],
+      "country": "Nicaragua",
+      "rating": 7.7,
+      "website": "https://cubancigarclub.co.uk"
+    },
+    {
+      "id": "checkout-mss8muy54cv7a0",
+      "brand": "Romeo y Julieta",
+      "name": "Puritos",
+      "vitola": "Petit Corona",
+      "size": "4x30",
+      "smokeTime": 25,
+      "retailPrice": 9.96,
+      "strength": "Medium",
+      "flavors": [
+        "cedar",
+        "wood",
+        "spice"
+      ],
+      "pairings": [
+        "Coffee",
+        "Tea"
+      ],
+      "country": "Cuba",
+      "rating": 8,
+      "website": "https://cubancigarclub.co.uk"
+    },
+    {
+      "id": "checkout-mss8muy58istoh",
+      "brand": "Charatan",
+      "name": "",
+      "vitola": "Panetela",
+      "size": "6x36",
+      "smokeTime": 45,
+      "retailPrice": 8.53,
+      "strength": "Medium-Light",
+      "flavors": [
+        "cedar",
+        "nutty"
+      ],
+      "pairings": [
+        "Tea",
+        "Coffee"
+      ],
+      "country": "Nicaragua",
+      "rating": 7.6,
+      "website": "https://cubancigarclub.co.uk"
+    },
+    {
+      "id": "checkout-mss8muy57sk6gk",
+      "brand": "Plasencia",
+      "name": "Reserva",
+      "vitola": "Pyramid",
+      "size": "6.2x52",
+      "smokeTime": 65,
+      "retailPrice": 17.1,
+      "strength": "Medium-Full",
+      "flavors": [
+        "cedar",
+        "cocoa",
+        "spice"
+      ],
+      "pairings": [
+        "Rum",
+        "Bourbon"
+      ],
+      "country": "Nicaragua",
+      "rating": 8.5,
+      "website": "https://cubancigarclub.co.uk"
+    },
+    {
+      "id": "checkout-mss8muy5biik9u",
+      "brand": "Drew Estate",
+      "name": "Factory Smokes Maduro",
+      "vitola": "Toro",
+      "size": "6x52",
+      "smokeTime": 60,
+      "retailPrice": 12.36,
+      "strength": "Medium-Full",
+      "flavors": [
+        "chocolate",
+        "coffee",
+        "earth"
+      ],
+      "pairings": [
+        "Coffee",
+        "Dark Rum"
+      ],
+      "country": "Nicaragua",
+      "rating": 8.1,
+      "website": "https://cubancigarclub.co.uk"
+    },
+    {
+      "id": "checkout-mss8muy5y10fct",
+      "brand": "Romeo y Julieta",
+      "name": "Línea Clásica",
+      "vitola": "Cazadores",
+      "size": "5.6x43",
+      "smokeTime": 45,
+      "retailPrice": 27.26,
+      "strength": "Medium",
+      "flavors": [
+        "cedar",
+        "floral",
+        "nutty"
+      ],
+      "pairings": [
+        "Rum",
+        "Port"
+      ],
+      "country": "Cuba",
+      "rating": 8.5,
+      "website": "https://cubancigarclub.co.uk"
+    },
+    {
+      "id": "checkout-mss8muy5ohphpb",
+      "brand": "Partagás",
+      "name": "Línea Clásica",
+      "vitola": "Petit Corona",
+      "size": "4.9x42",
+      "smokeTime": 45,
+      "retailPrice": 18.52,
+      "strength": "Full",
+      "flavors": [
+        "earth",
+        "pepper",
+        "leather",
+        "coffee"
+      ],
+      "pairings": [
+        "Rum",
+        "Whisky"
+      ],
+      "country": "Cuba",
+      "rating": 8.7,
+      "website": "https://cubancigarclub.co.uk"
+    },
+    {
+      "id": "checkout-mss8muy5jeu3lg",
+      "brand": "Bolívar",
+      "name": "Línea Clásica",
+      "vitola": "Petit Corona",
+      "size": "5.1x42",
+      "smokeTime": 45,
+      "retailPrice": 19.71,
+      "strength": "Full",
+      "flavors": [
+        "earth",
+        "pepper",
+        "leather"
+      ],
+      "pairings": [
+        "Rum",
+        "Whisky"
+      ],
+      "country": "Cuba",
+      "rating": 8.6,
+      "website": "https://cubancigarclub.co.uk"
+    },
+    {
+      "id": "checkout-mss8muy595z76k",
+      "brand": "Bolívar",
+      "name": "Coronas J",
+      "vitola": "Corona",
+      "size": "5.6x42",
+      "smokeTime": 55,
+      "retailPrice": 17.26,
+      "strength": "Full",
+      "flavors": [
+        "earth",
+        "pepper",
+        "leather"
+      ],
+      "pairings": [
+        "Rum",
+        "Whisky"
+      ],
+      "country": "Cuba",
+      "rating": 8.6,
+      "website": "https://cubancigarclub.co.uk"
+    },
+    {
+      "id": "checkout-mss8muy5a3q1an",
+      "brand": "H. Upmann",
+      "name": "",
+      "vitola": "Majestic",
+      "size": "4x40",
+      "smokeTime": 30,
+      "retailPrice": 16.13,
+      "strength": "Medium",
+      "flavors": [
+        "cedar",
+        "nutty",
+        "honey"
+      ],
+      "pairings": [
+        "Coffee",
+        "Sherry"
+      ],
+      "country": "Cuba",
+      "rating": 8.2,
+      "website": "https://cubancigarclub.co.uk"
+    },
+    {
+      "id": "checkout-mss8muy58sva4k",
+      "brand": "Fonseca",
+      "name": "KDT Cadetes",
+      "vitola": "Petit Corona",
+      "size": "4.3x40",
+      "smokeTime": 35,
+      "retailPrice": 10.94,
+      "strength": "Light",
+      "flavors": [
+        "cedar",
+        "cream",
+        "honey"
+      ],
+      "pairings": [
+        "Coffee",
+        "Tea"
+      ],
+      "country": "Cuba",
+      "rating": 8,
+      "website": "https://cubancigarclub.co.uk"
+    },
+    {
+      "id": "checkout-mss8muy5babmt8",
+      "brand": "Por Larrañaga",
+      "name": "",
+      "vitola": "Montecarlo",
+      "size": "4.5x40",
+      "smokeTime": 35,
+      "retailPrice": 13.03,
+      "strength": "Medium",
+      "flavors": [
+        "cedar",
+        "nutty",
+        "floral"
+      ],
+      "pairings": [
+        "Sherry",
+        "Tea"
+      ],
+      "country": "Cuba",
+      "rating": 8.1,
+      "website": "https://cubancigarclub.co.uk"
+    },
+    {
+      "id": "checkout-mss8muy569kwyd",
+      "brand": "Cohiba",
+      "name": "Línea de Siglos",
+      "vitola": "Corona (Siglo II, Tubos)",
+      "size": "5.6x42",
+      "smokeTime": 55,
+      "retailPrice": 42,
+      "strength": "Medium-Full",
+      "flavors": [
+        "cedar",
+        "coffee",
+        "nutmeg",
+        "pepper"
+      ],
+      "pairings": [
+        "Rum",
+        "Cognac"
+      ],
+      "country": "Cuba",
+      "rating": 9.1,
+      "website": "https://www.smoke-king.co.uk"
+    },
+    {
+      "id": "checkout-mss8muy5dkj44a",
+      "brand": "Quorum",
+      "name": "Classic",
+      "vitola": "Churchill",
+      "size": "7x50",
+      "smokeTime": 75,
+      "retailPrice": 14.5,
+      "strength": "Medium",
+      "flavors": [
+        "nutty",
+        "cedar",
+        "spice"
+      ],
+      "pairings": [
+        "Coffee",
+        "Light Ale"
+      ],
+      "country": "Nicaragua",
+      "rating": 7.9,
+      "website": "https://www.smoke-king.co.uk"
+    },
+    {
+      "id": "checkout-mss8muy5dq0rnz",
+      "brand": "Quorum",
+      "name": "Classic",
+      "vitola": "Delgado (Panetela)",
+      "size": "4.5x30",
+      "smokeTime": 25,
+      "retailPrice": 6.25,
+      "strength": "Medium",
+      "flavors": [
+        "nutty",
+        "cedar",
+        "spice"
+      ],
+      "pairings": [
+        "Coffee",
+        "Tea"
+      ],
+      "country": "Nicaragua",
+      "rating": 7.7,
+      "website": "https://www.smoke-king.co.uk"
+    },
+    {
+      "id": "checkout-mss8muy55ixxln",
+      "brand": "Quorum",
+      "name": "Maduro",
+      "vitola": "Corona",
+      "size": "5.5x44",
+      "smokeTime": 50,
+      "retailPrice": 10,
+      "strength": "Medium-Full",
+      "flavors": [
+        "chocolate",
+        "spice",
+        "earth"
+      ],
+      "pairings": [
+        "Dark Rum",
+        "Coffee"
+      ],
+      "country": "Nicaragua",
+      "rating": 7.9,
+      "website": "https://www.smoke-king.co.uk"
+    },
+    {
+      "id": "checkout-mss8muy52gx64n",
+      "brand": "H. Upmann",
+      "name": "",
+      "vitola": "Regalias",
+      "size": "5.1x42",
+      "smokeTime": 50,
+      "retailPrice": 19.75,
+      "strength": "Medium",
+      "flavors": [
+        "cedar",
+        "nutty",
+        "honey"
+      ],
+      "pairings": [
+        "Coffee",
+        "Sherry"
+      ],
+      "country": "Cuba",
+      "rating": 8.3,
+      "website": "https://www.smoke-king.co.uk"
+    },
+    {
+      "id": "checkout-mss8muy5x42jk2",
+      "brand": "Cohiba",
+      "name": "Línea de Siglos",
+      "vitola": "Petit Corona (Siglo I)",
+      "size": "4x40",
+      "smokeTime": 30,
+      "retailPrice": 28,
+      "strength": "Medium",
+      "flavors": [
+        "cedar",
+        "coffee",
+        "nutmeg"
+      ],
+      "pairings": [
+        "Coffee",
+        "Cognac"
+      ],
+      "country": "Cuba",
+      "rating": 8.8,
+      "website": "https://www.smoke-king.co.uk"
+    },
+    {
+      "id": "checkout-mss8muy53chs65",
+      "brand": "Partagás",
+      "name": "Maduro",
+      "vitola": "Torpedo",
+      "size": "6.1x52",
+      "smokeTime": 75,
+      "retailPrice": 36,
+      "strength": "Full",
+      "flavors": [
+        "earth",
+        "pepper",
+        "leather",
+        "coffee"
+      ],
+      "pairings": [
+        "Rum",
+        "Whisky"
+      ],
+      "country": "Cuba",
+      "rating": 8.9,
+      "website": "https://www.smoke-king.co.uk"
+    },
+    {
+      "id": "checkout-mss8muy5jcp34v",
+      "brand": "Partagás",
+      "name": "Serie D No. 4",
+      "vitola": "Robusto",
+      "size": "4.8x50",
+      "smokeTime": 50,
+      "retailPrice": 36,
+      "strength": "Full",
+      "flavors": [
+        "earth",
+        "pepper",
+        "leather",
+        "coffee"
+      ],
+      "pairings": [
+        "Rum",
+        "Whisky"
+      ],
+      "country": "Cuba",
+      "rating": 9.2,
+      "website": "https://www.smoke-king.co.uk"
+    },
+    {
+      "id": "checkout-mss8muy5njp16y",
+      "brand": "Montecristo",
+      "name": "",
+      "vitola": "Half Corona",
+      "size": "4x42",
+      "smokeTime": 35,
+      "retailPrice": 17.25,
+      "strength": "Medium",
+      "flavors": [
+        "cedar",
+        "cream",
+        "nutty"
+      ],
+      "pairings": [
+        "Coffee",
+        "Port"
+      ],
+      "country": "Cuba",
+      "rating": 8.4,
+      "website": "https://www.smoke-king.co.uk"
+    },
+    {
+      "id": "checkout-mss8muy511zqyg",
+      "brand": "Cuaba",
+      "name": "Divinos",
+      "vitola": "Perfecto",
+      "size": "5.6x42",
+      "smokeTime": 55,
+      "retailPrice": 16,
+      "strength": "Medium-Full",
+      "flavors": [
+        "spice",
+        "cedar",
+        "earth"
+      ],
+      "pairings": [
+        "Rum",
+        "Whisky"
+      ],
+      "country": "Cuba",
+      "rating": 8.4,
+      "website": "https://www.smoke-king.co.uk"
+    },
+    {
+      "id": "checkout-mss8muy5urnt0i",
+      "brand": "Montecristo",
+      "name": "Open",
+      "vitola": "Robusto (Open J)",
+      "size": "4.9x50",
+      "smokeTime": 50,
+      "retailPrice": 17,
+      "strength": "Medium",
+      "flavors": [
+        "cedar",
+        "cream",
+        "coffee"
+      ],
+      "pairings": [
+        "Coffee",
+        "Cognac"
+      ],
+      "country": "Cuba",
+      "rating": 8.3,
+      "website": "https://www.smoke-king.co.uk"
+    },
+    {
+      "id": "checkout-mss8muy5ff63c0",
+      "brand": "H. Upmann",
+      "name": "Coronas J",
+      "vitola": "Corona",
+      "size": "5.6x42",
+      "smokeTime": 55,
+      "retailPrice": 16.5,
+      "strength": "Medium",
+      "flavors": [
+        "cedar",
+        "nutty",
+        "honey"
+      ],
+      "pairings": [
+        "Coffee",
+        "Sherry"
+      ],
+      "country": "Cuba",
+      "rating": 8.4,
+      "website": "https://www.smoke-king.co.uk"
+    },
+    {
+      "id": "checkout-mss8muy5mkx5j9",
+      "brand": "Montecristo",
+      "name": "",
+      "vitola": "Petit Corona (Petit Tubos)",
+      "size": "4.7x40",
+      "smokeTime": 35,
+      "retailPrice": 25,
+      "strength": "Medium",
+      "flavors": [
+        "cedar",
+        "cream",
+        "coffee"
+      ],
+      "pairings": [
+        "Coffee",
+        "Port"
+      ],
+      "country": "Cuba",
+      "rating": 8.5,
+      "website": "https://www.smoke-king.co.uk"
+    },
+    {
+      "id": "checkout-mss8muy5avzdpx",
+      "brand": "Cuaba",
+      "name": "Tradicionales",
+      "vitola": "Perfecto",
+      "size": "6.5x38",
+      "smokeTime": 65,
+      "retailPrice": 19.25,
+      "strength": "Medium-Full",
+      "flavors": [
+        "spice",
+        "cedar",
+        "earth"
+      ],
+      "pairings": [
+        "Rum",
+        "Whisky"
+      ],
+      "country": "Cuba",
+      "rating": 8.5,
+      "website": "https://www.smoke-king.co.uk"
+    },
+    {
+      "id": "checkout-mss8muy5hzmubj",
+      "brand": "Montecristo",
+      "name": "Open",
+      "vitola": "Toro (Open Master)",
+      "size": "5.5x54",
+      "smokeTime": 65,
+      "retailPrice": 31.25,
+      "strength": "Medium",
+      "flavors": [
+        "cedar",
+        "cream",
+        "coffee",
+        "spice"
+      ],
+      "pairings": [
+        "Coffee",
+        "Cognac"
+      ],
+      "country": "Cuba",
+      "rating": 8.6,
+      "website": "https://www.smoke-king.co.uk"
+    },
+    {
+      "id": "checkout-mss8muy5gp4vvp",
+      "brand": "El Rey del Mundo",
+      "name": "Choix Supreme",
+      "vitola": "Lonsdale",
+      "size": "6.3x42",
+      "smokeTime": 60,
+      "retailPrice": 25.5,
+      "strength": "Medium",
+      "flavors": [
+        "cedar",
+        "earth",
+        "nutty"
+      ],
+      "pairings": [
+        "Sherry",
+        "Coffee"
+      ],
+      "country": "Cuba",
+      "rating": 8.3,
+      "website": "https://www.smoke-king.co.uk"
+    },
+    {
+      "id": "checkout-mss8muy59ctce7",
+      "brand": "Montecristo",
+      "name": "Open",
+      "vitola": "Torpedo (Open Regata)",
+      "size": "5.1x50",
+      "smokeTime": 50,
+      "retailPrice": 25.25,
+      "strength": "Medium",
+      "flavors": [
+        "cedar",
+        "cream",
+        "spice"
+      ],
+      "pairings": [
+        "Coffee",
+        "Cognac"
+      ],
+      "country": "Cuba",
+      "rating": 8.4,
+      "website": "https://www.smoke-king.co.uk"
+    },
+    {
+      "id": "checkout-mss8muy5vtzppo",
+      "brand": "Montecristo",
+      "name": "Especial No. 2",
+      "vitola": "Panetela",
+      "size": "6x38",
+      "smokeTime": 55,
+      "retailPrice": 28,
+      "strength": "Medium",
+      "flavors": [
+        "cedar",
+        "cream",
+        "coffee"
+      ],
+      "pairings": [
+        "Coffee",
+        "Cognac"
+      ],
+      "country": "Cuba",
+      "rating": 8.5,
+      "website": "https://www.smoke-king.co.uk"
+    },
+    {
+      "id": "checkout-mss8muy5jwyrf6",
+      "brand": "Por Larrañaga",
+      "name": "",
+      "vitola": "Petit Corona",
+      "size": "5.1x42",
+      "smokeTime": 45,
+      "retailPrice": 18,
+      "strength": "Medium",
+      "flavors": [
+        "cedar",
+        "nutty",
+        "floral"
+      ],
+      "pairings": [
+        "Sherry",
+        "Tea"
+      ],
+      "country": "Cuba",
+      "rating": 8.2,
+      "website": "https://www.smoke-king.co.uk"
+    },
+    {
+      "id": "checkout-mss8muy5maxy0l",
+      "brand": "H. Upmann",
+      "name": "",
+      "vitola": "Pyramid (No. 2)",
+      "size": "6.1x52",
+      "smokeTime": 70,
+      "retailPrice": 32,
+      "strength": "Medium",
+      "flavors": [
+        "cedar",
+        "nutty",
+        "honey",
+        "cream"
+      ],
+      "pairings": [
+        "Coffee",
+        "Sherry"
+      ],
+      "country": "Cuba",
+      "rating": 9,
+      "website": "https://www.smoke-king.co.uk"
+    }
+  ],
   "wishlist": [],
   "hiddenSeedIds": [
     "cohiba-robusto",
@@ -116,5 +1029,5 @@
     "perdomo-10th",
     "crowned-heads-jericho"
   ],
-  "syncedAt": "2026-08-14T00:57:35.541Z"
+  "syncedAt": "2026-08-14T00:57:58.889Z"
 }
