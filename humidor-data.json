@@ -57,34 +57,6 @@
       "humidorId": "checkout-msnqk57ksvuk5n-msnql2omwxlqro"
     },
     {
-      "id": "checkout-mss8decykqlfqj",
-      "brand": "Cohiba",
-      "name": "Línea de Siglos",
-      "vitola": "Corona (Siglo II, Tubos)",
-      "size": "5.6x42",
-      "smokeTime": 55,
-      "retailPrice": 42,
-      "strength": "Medium-Full",
-      "flavors": [
-        "cedar",
-        "coffee",
-        "nutmeg",
-        "pepper"
-      ],
-      "pairings": [
-        "Rum",
-        "Cognac"
-      ],
-      "country": "Cuba",
-      "rating": 9.1,
-      "website": "https://www.smoke-king.co.uk",
-      "quantity": 1,
-      "actualCost": 42,
-      "dateAdded": "14/08/2026",
-      "dateAddedISO": "2026-08-14T21:37:44.127Z",
-      "humidorId": "checkout-mss8decykqlfqj-mstgxccgj4tmlz"
-    },
-    {
       "id": "checkout-mss8decxk3x8xi",
       "brand": "Charatan",
       "name": "",
@@ -1337,5 +1309,5 @@
     "oliva-serie-v",
     "bolivar-churchill"
   ],
-  "syncedAt": "2026-08-14T21:39:38.969Z"
+  "syncedAt": "2026-08-14T21:57:32.019Z"
 }
