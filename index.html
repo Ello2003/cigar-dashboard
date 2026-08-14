@@ -357,7 +357,6 @@ function addCustomCigar(form){
   addToHumidor(cigar.id, cigar.retailPrice);
 }
 function deleteFromResearch(id){
-  if(!window.confirm('Remove this cigar from your Research library?\n\nAny stock already in your Humidor will be kept.')) return;
   var isSeed = SEED_CIGARS.some(function(c){return c.id===id;});
   if(isSeed){
     if(state.hiddenSeedIds.indexOf(id)===-1) state.hiddenSeedIds.push(id);
@@ -365,6 +364,12 @@ function deleteFromResearch(id){
     state.customLibrary = state.customLibrary.filter(function(c){return c.id!==id;});
   }
   state.compareList = state.compareList.filter(function(cid){return cid!==id;});
+  persist(); render();
+}
+function clearResearch(){
+  state.hiddenSeedIds = SEED_CIGARS.map(function(c){return c.id;});
+  state.customLibrary = [];
+  state.compareList = [];
   persist(); render();
 }
 function addToWishlist(id){
@@ -444,27 +449,39 @@ function githubSync(manual){
   try{ contentB64 = b64EncodeUnicode(JSON.stringify(payload, null, 2)); }
   catch(e){ state.syncStatus = 'Sync failed: could not encode data.'; render(); return; }
 
-  fetch(base+'?ref='+encodeURIComponent(cfg.branch||'main'), {
-    headers: { 'Authorization':'token '+cfg.token, 'Accept':'application/vnd.github+json' }
-  }).then(function(getResp){
-    if(getResp.status===200) return getResp.json().then(function(d){ return d.sha; });
-    if(getResp.status===404) return null;
-    throw new Error('GET failed ('+getResp.status+')');
-  }).then(function(sha){
+  function fetchSha(){
+    return fetch(base+'?ref='+encodeURIComponent(cfg.branch||'main')+'&t='+Date.now(), {
+      cache: 'no-store',
+      headers: { 'Authorization':'token '+cfg.token, 'Accept':'application/vnd.github+json' }
+    }).then(function(getResp){
+      if(getResp.status===200) return getResp.json().then(function(d){ return d.sha; });
+      if(getResp.status===404) return null;
+      throw new Error('GET failed ('+getResp.status+')');
+    });
+  }
+  function putFile(sha){
     var body = { message:'Update humidor data — '+new Date().toISOString(), content: contentB64, branch: cfg.branch||'main' };
     if(sha) body.sha = sha;
     return fetch(base, {
       method:'PUT',
+      cache: 'no-store',
       headers: { 'Authorization':'token '+cfg.token, 'Accept':'application/vnd.github+json', 'Content-Type':'application/json' },
       body: JSON.stringify(body)
     });
-  }).then(function(putResp){
-    if(!putResp.ok){
-      return putResp.text().then(function(t){ throw new Error('PUT failed ('+putResp.status+') '+t.slice(0,140)); });
-    }
-    state.syncStatus = 'Synced '+new Date().toLocaleTimeString('en-GB');
-    render();
-  }).catch(function(err){
+  }
+  function attempt(retriesLeft){
+    return fetchSha().then(putFile).then(function(putResp){
+      if(putResp.status===409 && retriesLeft>0){
+        return attempt(retriesLeft-1);
+      }
+      if(!putResp.ok){
+        return putResp.text().then(function(t){ throw new Error('PUT failed ('+putResp.status+') '+t.slice(0,140)); });
+      }
+      state.syncStatus = 'Synced '+new Date().toLocaleTimeString('en-GB');
+      render();
+    });
+  }
+  attempt(1).catch(function(err){
     state.syncStatus = 'Sync failed: '+err.message;
     render();
   });
@@ -741,7 +758,7 @@ function renderHumidor(){
   filtered.forEach(function(c){
     html += '<tr>'+
       '<td><p style="margin:0;font-weight:600;">'+esc(c.brand)+(c.name? ' '+esc(c.name):'')+'</p>'+
-      '<p class="muted mono" style="margin:2px 0 0;">'+esc(c.vitola)+' · '+esc(c.size)+' · '+esc(c.country)+'</p>'+
+      '<p class="muted mono" style="margin:2px 0 0;">'+esc(c.vitola)+' · '+esc(c.country)+'</p>'+
       '<div>'+c.flavors.map(function(f){return '<span class="tag">'+esc(f)+'</span>';}).join('')+'</div></td>'+
       '<td class="center" style="font-weight:600;">'+c.quantity+'</td>'+
       '<td class="center muted mono" style="font-size:11px;">'+esc(c.strength)+'</td>'+
@@ -842,8 +859,11 @@ function renderResearch(){
     '</form></div>';
 
   html += '<div class="card" style="margin-bottom:18px;">'+
-    '<h3 class="section-title">Research Library — '+results.length+' Cigars</h3>'+
-    '<div class="filter-bar">'+
+    '<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">'+
+      '<h3 class="section-title" style="margin:0;">Research Library — '+results.length+' Cigars</h3>'+
+      '<button class="btn-danger btn-sm" data-action="clear-research">Clear Research</button>'+
+    '</div>'+
+    '<div class="filter-bar" style="margin-top:14px;">'+
       '<input type="text" id="r-search" placeholder="Search brand, vitola, flavour&hellip;" value="'+esc(state.rSearch)+'">'+
       '<select id="r-country"><option value="All">All Countries</option>'+
         countries.map(function(c){return '<option value="'+esc(c)+'"'+(state.rCountry===c?' selected':'')+'>'+esc(c)+'</option>';}).join('')+
@@ -1066,6 +1086,7 @@ function init(){
     else if(action==='remove'){ removeFromHumidor(id); }
     else if(action==='add-wishlist'){ addToWishlist(id); }
     else if(action==='delete-research'){ deleteFromResearch(id); }
+    else if(action==='clear-research'){ clearResearch(); }
     else if(action==='wishlist-to-humidor'){ moveWishlistToHumidor(id); }
     else if(action==='remove-wishlist'){ removeFromWishlist(id); }
     else if(action==='export-data'){ exportData(); }
