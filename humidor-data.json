@@ -83,6 +83,33 @@
       "dateAdded": "14/08/2026",
       "dateAddedISO": "2026-08-14T21:37:44.127Z",
       "humidorId": "checkout-mss8decykqlfqj-mstgxccgj4tmlz"
+    },
+    {
+      "id": "checkout-mss8decxk3x8xi",
+      "brand": "Charatan",
+      "name": "",
+      "vitola": "Churchill",
+      "size": "7x48",
+      "smokeTime": 70,
+      "retailPrice": 15.2,
+      "strength": "Medium",
+      "flavors": [
+        "cedar",
+        "nutty",
+        "mild spice"
+      ],
+      "pairings": [
+        "Tea",
+        "Light Ale"
+      ],
+      "country": "Nicaragua",
+      "rating": 7.7,
+      "website": "https://cubancigarclub.co.uk",
+      "quantity": 1,
+      "actualCost": 15.2,
+      "dateAdded": "14/08/2026",
+      "dateAddedISO": "2026-08-14T21:39:34.958Z",
+      "humidorId": "checkout-mss8decxk3x8xi-mstgzpv3k90ygy"
     }
   ],
   "smokeHistory": [
@@ -1310,5 +1337,5 @@
     "oliva-serie-v",
     "bolivar-churchill"
   ],
-  "syncedAt": "2026-08-14T21:39:13.994Z"
+  "syncedAt": "2026-08-14T21:39:38.969Z"
 }
