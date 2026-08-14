@@ -55,6 +55,34 @@
       "dateAdded": "10/08/2026",
       "dateAddedISO": "2026-08-10T21:21:30.837Z",
       "humidorId": "checkout-msnqk57ksvuk5n-msnql2omwxlqro"
+    },
+    {
+      "id": "checkout-mss8decykqlfqj",
+      "brand": "Cohiba",
+      "name": "Línea de Siglos",
+      "vitola": "Corona (Siglo II, Tubos)",
+      "size": "5.6x42",
+      "smokeTime": 55,
+      "retailPrice": 42,
+      "strength": "Medium-Full",
+      "flavors": [
+        "cedar",
+        "coffee",
+        "nutmeg",
+        "pepper"
+      ],
+      "pairings": [
+        "Rum",
+        "Cognac"
+      ],
+      "country": "Cuba",
+      "rating": 9.1,
+      "website": "https://www.smoke-king.co.uk",
+      "quantity": 1,
+      "actualCost": 42,
+      "dateAdded": "14/08/2026",
+      "dateAddedISO": "2026-08-14T21:37:44.127Z",
+      "humidorId": "checkout-mss8decykqlfqj-mstgxccgj4tmlz"
     }
   ],
   "smokeHistory": [
@@ -90,11 +118,283 @@
       "timeSmoked": "22:21:59",
       "notes": "",
       "costPerMinute": "0.90"
+    },
+    {
+      "id": "checkout-mss8decx65ixdt",
+      "brand": "E.P. Carrillo",
+      "name": "Encore",
+      "vitola": "Majestic (Robusto)",
+      "size": "5x50",
+      "smokeTime": 55,
+      "retailPrice": 19.27,
+      "strength": "Medium",
+      "flavors": [
+        "cedar",
+        "cream",
+        "spice",
+        "pepper",
+        "earth"
+      ],
+      "pairings": [
+        "Coffee",
+        "Lager"
+      ],
+      "country": "Nicaragua",
+      "rating": 9.3,
+      "website": "https://cubancigarclub.co.uk",
+      "quantity": 1,
+      "actualCost": 19.27,
+      "dateAdded": "14/08/2026",
+      "dateAddedISO": "2026-08-14T00:52:53.915Z",
+      "humidorId": "checkout-mss8decx65ixdt-mss8gh0bjidoy5",
+      "dateSmoked": "14/08/2026",
+      "dateSmokedISO": "2026-08-14T00:53:11.036Z",
+      "timeSmoked": "01:53:11",
+      "notes": "",
+      "costPerMinute": "0.35"
     }
   ],
   "customLibrary": [
     {
-      "id": "checkout-mss8muy5lbn46c",
+      "id": "checkout-msnqk57ksvuk5n",
+      "brand": "Davidoff",
+      "vitola": "Grand Cru Toro",
+      "size": "6x54",
+      "smokeTime": 60,
+      "retailPrice": 52,
+      "strength": "Light",
+      "flavors": [
+        "cream",
+        "cedar",
+        "almond",
+        "coffee",
+        "vanilla"
+      ],
+      "pairings": [
+        "Scotch",
+        "Bourbon",
+        "Coffee"
+      ],
+      "country": "Dominican Republic",
+      "rating": 8.6
+    },
+    {
+      "id": "checkout-msnqk57kzlfl5p",
+      "brand": "Davidoff",
+      "vitola": "Winston Churchill Belicoso - Traveller",
+      "size": "4.5x46",
+      "smokeTime": 20,
+      "retailPrice": 18,
+      "strength": "Medium",
+      "flavors": [
+        "spice",
+        "sweetness",
+        "cedar",
+        "floral",
+        "pepper"
+      ],
+      "pairings": [
+        "Scotch",
+        "Coffee",
+        "Bourbon"
+      ],
+      "country": "Dominican Republic",
+      "rating": 8.7
+    },
+    {
+      "id": "checkout-msnqk57k9z7uv7",
+      "brand": "Davidoff",
+      "vitola": "Grand Cru No. 2",
+      "size": "5.625x43",
+      "smokeTime": 30,
+      "retailPrice": 41,
+      "strength": "Light",
+      "flavors": [
+        "nut",
+        "cedar",
+        "honey",
+        "almond",
+        "pepper"
+      ],
+      "pairings": [
+        "Coffee",
+        "Scotch",
+        "Bourbon"
+      ],
+      "country": "Dominican Republic",
+      "rating": 8.7
+    },
+    {
+      "id": "checkout-mss51gcq0yop0c",
+      "brand": "Unknown",
+      "name": "",
+      "vitola": "Unknown",
+      "size": "—",
+      "smokeTime": 60,
+      "retailPrice": 0,
+      "strength": "Medium",
+      "flavors": [
+        "—"
+      ],
+      "pairings": [
+        "—"
+      ],
+      "country": "Unknown",
+      "rating": 8,
+      "website": ""
+    },
+    {
+      "id": "checkout-mss52hqgi4al3r",
+      "brand": "Davidoff",
+      "name": "Aniversario",
+      "vitola": "Short Perfecto",
+      "size": "4 7/8 x 52",
+      "smokeTime": 45,
+      "retailPrice": 28.5,
+      "strength": "Medium",
+      "flavors": [
+        "cedar",
+        "cream",
+        "nuts",
+        "white pepper",
+        "leather"
+      ],
+      "pairings": [
+        "Champagne",
+        "Single Malt Speyside Whisky",
+        "Creamy Latte"
+      ],
+      "country": "Dominican Republic",
+      "rating": 9.1,
+      "website": "https://www.davidofflondon.com"
+    },
+    {
+      "id": "checkout-mss52hqg12zw5p",
+      "brand": "Partagas",
+      "name": "Serie D No. 4",
+      "vitola": "Robusto",
+      "size": "4 7/8 x 50",
+      "smokeTime": 45,
+      "retailPrice": 34.5,
+      "strength": "Full",
+      "flavors": [
+        "earth",
+        "spice",
+        "wood",
+        "leather",
+        "dark chocolate"
+      ],
+      "pairings": [
+        "Aged Cuban Rum",
+        "Peaty Islay Whisky",
+        "Espresso"
+      ],
+      "country": "Cuba",
+      "rating": 9.4,
+      "website": "https://www.cgarsltd.co.uk"
+    },
+    {
+      "id": "checkout-mss52hqhmw5bal",
+      "brand": "Monte Cristo",
+      "name": "No. 4",
+      "vitola": "Petit Corona",
+      "size": "5 1/8 x 42",
+      "smokeTime": 35,
+      "retailPrice": 18.5,
+      "strength": "Medium-Full",
+      "flavors": [
+        "coffee",
+        "cocoa",
+        "earth",
+        "roasted nuts",
+        "spice"
+      ],
+      "pairings": [
+        "Cappuccino",
+        "Bourbon",
+        "Dark Ale"
+      ],
+      "country": "Cuba",
+      "rating": 9,
+      "website": "https://cubancigarclub.co.uk"
+    },
+    {
+      "id": "checkout-mss52hqhbbjfwc",
+      "brand": "Ramon Allones",
+      "name": "Specially Selected",
+      "vitola": "Robusto",
+      "size": "4 7/8 x 50",
+      "smokeTime": 45,
+      "retailPrice": 29,
+      "strength": "Full",
+      "flavors": [
+        "stewed fruit",
+        "nuts",
+        "cedar",
+        "earth",
+        "spice"
+      ],
+      "pairings": [
+        "Sherry Cask Whisky",
+        "Dark Rum",
+        "Stout"
+      ],
+      "country": "Cuba",
+      "rating": 9.3,
+      "website": "https://cubancigarclub.co.uk"
+    },
+    {
+      "id": "checkout-mss52hqhgyns8o",
+      "brand": "Hoyo de Monterrey",
+      "name": "Epicure No. 2",
+      "vitola": "Robusto",
+      "size": "4 7/8 x 50",
+      "smokeTime": 45,
+      "retailPrice": 31,
+      "strength": "Medium",
+      "flavors": [
+        "cream",
+        "cedar",
+        "cocoa",
+        "sweet spice",
+        "minerals"
+      ],
+      "pairings": [
+        "Cognac",
+        "Light Roast Coffee",
+        "Chardonnay"
+      ],
+      "country": "Cuba",
+      "rating": 9.2,
+      "website": "https://www.smoke-king.co.uk"
+    },
+    {
+      "id": "checkout-mss52hqh81o12o",
+      "brand": "Romeo y Julieta",
+      "name": "Wide Churchill",
+      "vitola": "Montesco",
+      "size": "5 1/8 x 55",
+      "smokeTime": 60,
+      "retailPrice": 36,
+      "strength": "Medium",
+      "flavors": [
+        "cherry",
+        "cedar",
+        "leather",
+        "vanilla",
+        "herbs"
+      ],
+      "pairings": [
+        "Port Wine",
+        "Balanced Single Malt",
+        "Flat White"
+      ],
+      "country": "Cuba",
+      "rating": 9.1,
+      "website": "https://www.smoke-king.co.uk"
+    },
+    {
+      "id": "checkout-mss8decxumpnnk",
       "brand": "Davidoff",
       "name": "Grand Cru",
       "vitola": "Toro",
@@ -117,7 +417,7 @@
       "website": "https://www.davidofflondon.com"
     },
     {
-      "id": "checkout-mss8muy55m7b4v",
+      "id": "checkout-mss8decxpt6ngs",
       "brand": "Davidoff",
       "name": "Winston Churchill — The Traveller",
       "vitola": "Belicoso",
@@ -140,7 +440,7 @@
       "website": "https://www.davidofflondon.com"
     },
     {
-      "id": "checkout-mss8muy51hml6c",
+      "id": "checkout-mss8decxxbf0al",
       "brand": "Davidoff",
       "name": "Grand Cru",
       "vitola": "Corona",
@@ -162,7 +462,7 @@
       "website": "https://www.davidofflondon.com"
     },
     {
-      "id": "checkout-mss8muy5q14vww",
+      "id": "checkout-mss8decxg5uj8s",
       "brand": "Davidoff",
       "name": "Aniversario No. 1 (Limited Edition, Discontinued)",
       "vitola": "Lonsdale",
@@ -185,7 +485,7 @@
       "website": "https://www.cgarsltd.co.uk"
     },
     {
-      "id": "checkout-mss8muy5rmwr1z",
+      "id": "checkout-mss8decxu05qis",
       "brand": "Davidoff",
       "name": "Master Edition Clubhouse (Discontinued)",
       "vitola": "Robusto",
@@ -207,7 +507,7 @@
       "website": "https://www.cgarsltd.co.uk"
     },
     {
-      "id": "checkout-mss8muy5nzkduq",
+      "id": "checkout-mss8decxc7km9d",
       "brand": "Oliva",
       "name": "Serie V",
       "vitola": "Double Robusto",
@@ -229,7 +529,7 @@
       "website": "https://cubancigarclub.co.uk"
     },
     {
-      "id": "checkout-mss8muy5r1ts24",
+      "id": "checkout-mss8decxvltst3",
       "brand": "Oliva",
       "name": "Serie V",
       "vitola": "Belicoso",
@@ -251,7 +551,7 @@
       "website": "https://cubancigarclub.co.uk"
     },
     {
-      "id": "checkout-mss8muy5t7hipa",
+      "id": "checkout-mss8decx65ixdt",
       "brand": "E.P. Carrillo",
       "name": "Encore",
       "vitola": "Majestic (Robusto)",
@@ -275,7 +575,7 @@
       "website": "https://cubancigarclub.co.uk"
     },
     {
-      "id": "checkout-mss8muy5hjbtxp",
+      "id": "checkout-mss8decxd4zixt",
       "brand": "Flor de Oliva",
       "name": "",
       "vitola": "Churchill",
@@ -297,7 +597,7 @@
       "website": "https://cubancigarclub.co.uk"
     },
     {
-      "id": "checkout-mss8muy54grsr7",
+      "id": "checkout-mss8decxk3x8xi",
       "brand": "Charatan",
       "name": "",
       "vitola": "Churchill",
@@ -319,7 +619,7 @@
       "website": "https://cubancigarclub.co.uk"
     },
     {
-      "id": "checkout-mss8muy54cv7a0",
+      "id": "checkout-mss8decx8j63rg",
       "brand": "Romeo y Julieta",
       "name": "Puritos",
       "vitola": "Petit Corona",
@@ -341,7 +641,7 @@
       "website": "https://cubancigarclub.co.uk"
     },
     {
-      "id": "checkout-mss8muy58istoh",
+      "id": "checkout-mss8decxflln09",
       "brand": "Charatan",
       "name": "",
       "vitola": "Panetela",
@@ -362,7 +662,7 @@
       "website": "https://cubancigarclub.co.uk"
     },
     {
-      "id": "checkout-mss8muy57sk6gk",
+      "id": "checkout-mss8decxihlqkl",
       "brand": "Plasencia",
       "name": "Reserva",
       "vitola": "Pyramid",
@@ -384,7 +684,7 @@
       "website": "https://cubancigarclub.co.uk"
     },
     {
-      "id": "checkout-mss8muy5biik9u",
+      "id": "checkout-mss8decyk7afi5",
       "brand": "Drew Estate",
       "name": "Factory Smokes Maduro",
       "vitola": "Toro",
@@ -406,7 +706,7 @@
       "website": "https://cubancigarclub.co.uk"
     },
     {
-      "id": "checkout-mss8muy5y10fct",
+      "id": "checkout-mss8decyukimxl",
       "brand": "Romeo y Julieta",
       "name": "Línea Clásica",
       "vitola": "Cazadores",
@@ -428,7 +728,7 @@
       "website": "https://cubancigarclub.co.uk"
     },
     {
-      "id": "checkout-mss8muy5ohphpb",
+      "id": "checkout-mss8decybaee0b",
       "brand": "Partagás",
       "name": "Línea Clásica",
       "vitola": "Petit Corona",
@@ -451,7 +751,7 @@
       "website": "https://cubancigarclub.co.uk"
     },
     {
-      "id": "checkout-mss8muy5jeu3lg",
+      "id": "checkout-mss8decy3cr28u",
       "brand": "Bolívar",
       "name": "Línea Clásica",
       "vitola": "Petit Corona",
@@ -473,7 +773,7 @@
       "website": "https://cubancigarclub.co.uk"
     },
     {
-      "id": "checkout-mss8muy595z76k",
+      "id": "checkout-mss8decyps27yg",
       "brand": "Bolívar",
       "name": "Coronas J",
       "vitola": "Corona",
@@ -495,7 +795,7 @@
       "website": "https://cubancigarclub.co.uk"
     },
     {
-      "id": "checkout-mss8muy5a3q1an",
+      "id": "checkout-mss8decyf0qw6h",
       "brand": "H. Upmann",
       "name": "",
       "vitola": "Majestic",
@@ -517,7 +817,7 @@
       "website": "https://cubancigarclub.co.uk"
     },
     {
-      "id": "checkout-mss8muy58sva4k",
+      "id": "checkout-mss8decy2kk31j",
       "brand": "Fonseca",
       "name": "KDT Cadetes",
       "vitola": "Petit Corona",
@@ -539,7 +839,7 @@
       "website": "https://cubancigarclub.co.uk"
     },
     {
-      "id": "checkout-mss8muy5babmt8",
+      "id": "checkout-mss8decyvqqnsh",
       "brand": "Por Larrañaga",
       "name": "",
       "vitola": "Montecarlo",
@@ -561,7 +861,7 @@
       "website": "https://cubancigarclub.co.uk"
     },
     {
-      "id": "checkout-mss8muy569kwyd",
+      "id": "checkout-mss8decykqlfqj",
       "brand": "Cohiba",
       "name": "Línea de Siglos",
       "vitola": "Corona (Siglo II, Tubos)",
@@ -584,7 +884,7 @@
       "website": "https://www.smoke-king.co.uk"
     },
     {
-      "id": "checkout-mss8muy5dkj44a",
+      "id": "checkout-mss8decys0wnbs",
       "brand": "Quorum",
       "name": "Classic",
       "vitola": "Churchill",
@@ -606,7 +906,7 @@
       "website": "https://www.smoke-king.co.uk"
     },
     {
-      "id": "checkout-mss8muy5dq0rnz",
+      "id": "checkout-mss8decy680c7t",
       "brand": "Quorum",
       "name": "Classic",
       "vitola": "Delgado (Panetela)",
@@ -628,7 +928,7 @@
       "website": "https://www.smoke-king.co.uk"
     },
     {
-      "id": "checkout-mss8muy55ixxln",
+      "id": "checkout-mss8decyapcgux",
       "brand": "Quorum",
       "name": "Maduro",
       "vitola": "Corona",
@@ -650,7 +950,7 @@
       "website": "https://www.smoke-king.co.uk"
     },
     {
-      "id": "checkout-mss8muy52gx64n",
+      "id": "checkout-mss8decyrh67n0",
       "brand": "H. Upmann",
       "name": "",
       "vitola": "Regalias",
@@ -672,7 +972,7 @@
       "website": "https://www.smoke-king.co.uk"
     },
     {
-      "id": "checkout-mss8muy5x42jk2",
+      "id": "checkout-mss8decy0xj1mz",
       "brand": "Cohiba",
       "name": "Línea de Siglos",
       "vitola": "Petit Corona (Siglo I)",
@@ -694,7 +994,7 @@
       "website": "https://www.smoke-king.co.uk"
     },
     {
-      "id": "checkout-mss8muy53chs65",
+      "id": "checkout-mss8decyy61vbo",
       "brand": "Partagás",
       "name": "Maduro",
       "vitola": "Torpedo",
@@ -717,7 +1017,7 @@
       "website": "https://www.smoke-king.co.uk"
     },
     {
-      "id": "checkout-mss8muy5jcp34v",
+      "id": "checkout-mss8decytc0g8f",
       "brand": "Partagás",
       "name": "Serie D No. 4",
       "vitola": "Robusto",
@@ -740,7 +1040,7 @@
       "website": "https://www.smoke-king.co.uk"
     },
     {
-      "id": "checkout-mss8muy5njp16y",
+      "id": "checkout-mss8decyejl6ma",
       "brand": "Montecristo",
       "name": "",
       "vitola": "Half Corona",
@@ -762,7 +1062,7 @@
       "website": "https://www.smoke-king.co.uk"
     },
     {
-      "id": "checkout-mss8muy511zqyg",
+      "id": "checkout-mss8decymwfg28",
       "brand": "Cuaba",
       "name": "Divinos",
       "vitola": "Perfecto",
@@ -784,7 +1084,7 @@
       "website": "https://www.smoke-king.co.uk"
     },
     {
-      "id": "checkout-mss8muy5urnt0i",
+      "id": "checkout-mss8decymauyzc",
       "brand": "Montecristo",
       "name": "Open",
       "vitola": "Robusto (Open J)",
@@ -806,7 +1106,7 @@
       "website": "https://www.smoke-king.co.uk"
     },
     {
-      "id": "checkout-mss8muy5ff63c0",
+      "id": "checkout-mss8decy3cmjxa",
       "brand": "H. Upmann",
       "name": "Coronas J",
       "vitola": "Corona",
@@ -828,7 +1128,7 @@
       "website": "https://www.smoke-king.co.uk"
     },
     {
-      "id": "checkout-mss8muy5mkx5j9",
+      "id": "checkout-mss8decydx3p86",
       "brand": "Montecristo",
       "name": "",
       "vitola": "Petit Corona (Petit Tubos)",
@@ -850,7 +1150,7 @@
       "website": "https://www.smoke-king.co.uk"
     },
     {
-      "id": "checkout-mss8muy5avzdpx",
+      "id": "checkout-mss8decyj4y3qi",
       "brand": "Cuaba",
       "name": "Tradicionales",
       "vitola": "Perfecto",
@@ -872,7 +1172,7 @@
       "website": "https://www.smoke-king.co.uk"
     },
     {
-      "id": "checkout-mss8muy5hzmubj",
+      "id": "checkout-mss8decybw41ez",
       "brand": "Montecristo",
       "name": "Open",
       "vitola": "Toro (Open Master)",
@@ -895,7 +1195,7 @@
       "website": "https://www.smoke-king.co.uk"
     },
     {
-      "id": "checkout-mss8muy5gp4vvp",
+      "id": "checkout-mss8decy87mnfd",
       "brand": "El Rey del Mundo",
       "name": "Choix Supreme",
       "vitola": "Lonsdale",
@@ -917,7 +1217,7 @@
       "website": "https://www.smoke-king.co.uk"
     },
     {
-      "id": "checkout-mss8muy59ctce7",
+      "id": "checkout-mss8decysn68p7",
       "brand": "Montecristo",
       "name": "Open",
       "vitola": "Torpedo (Open Regata)",
@@ -939,7 +1239,7 @@
       "website": "https://www.smoke-king.co.uk"
     },
     {
-      "id": "checkout-mss8muy5vtzppo",
+      "id": "checkout-mss8decyhm9tpq",
       "brand": "Montecristo",
       "name": "Especial No. 2",
       "vitola": "Panetela",
@@ -961,7 +1261,7 @@
       "website": "https://www.smoke-king.co.uk"
     },
     {
-      "id": "checkout-mss8muy5jwyrf6",
+      "id": "checkout-mss8decynzrhk8",
       "brand": "Por Larrañaga",
       "name": "",
       "vitola": "Petit Corona",
@@ -983,7 +1283,7 @@
       "website": "https://www.smoke-king.co.uk"
     },
     {
-      "id": "checkout-mss8muy5maxy0l",
+      "id": "checkout-mss8decy2y0ylc",
       "brand": "H. Upmann",
       "name": "",
       "vitola": "Pyramid (No. 2)",
@@ -1008,26 +1308,26 @@
   ],
   "wishlist": [],
   "hiddenSeedIds": [
-    "cohiba-robusto",
-    "davidoff-churchill",
-    "partagas-churchill",
-    "mont-blanc-robusto",
-    "opus-x-fuente",
-    "ashton-virgin-sun",
-    "bolivar-churchill",
-    "padron-1964-robusto",
-    "arturo-fuente-shark",
-    "avo-xo-robusto",
-    "romeo-julieta-churchill",
     "my-father-le-bijou",
-    "oliva-serie-v",
-    "macanudo-hyde-park",
+    "opus-x-fuente",
+    "cohiba-robusto",
     "liga-privada-no9",
-    "hoyo-de-monterrey",
-    "rocky-patel-decade",
+    "arturo-fuente-shark",
     "don-pepin-garcia",
+    "macanudo-hyde-park",
     "perdomo-10th",
-    "crowned-heads-jericho"
+    "ashton-virgin-sun",
+    "hoyo-de-monterrey",
+    "mont-blanc-robusto",
+    "rocky-patel-decade",
+    "avo-xo-robusto",
+    "crowned-heads-jericho",
+    "padron-1964-robusto",
+    "romeo-julieta-churchill",
+    "partagas-churchill",
+    "davidoff-churchill",
+    "oliva-serie-v",
+    "bolivar-churchill"
   ],
-  "syncedAt": "2026-08-14T00:57:58.889Z"
+  "syncedAt": "2026-08-14T21:37:48.133Z"
 }
